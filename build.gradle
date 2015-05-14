@@ -1,15 +1,16 @@
 apply plugin: 'java'
 
 def libDir = './lib/'
+def lejosHome = '/home/root/lejos'
+def lejosProgs = '/home/lejos/programs'
+
+def mainClass = 'Main'
 
 sourceCompatibility = 1.7
 version = '0.1'
 
 repositories {
     mavenCentral()
-    flatDir {
-        dirs libDir + lejos_dir
-    }
 }
 
 configurations {
@@ -17,22 +18,30 @@ configurations {
     provided
 }
 
-sourceSets {
-    main.compileClasspath += configurations.provided
-    test.compileClasspath += configurations.provided
-    test.runtimeClasspath += configurations.provided
-}
-
 dependencies {
     sshAntTask 'org.apache.ant:ant-jsch:1.9.4'
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
-    provided group: 'lejos', name: 'ev3classes', version: '1.0'
     testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    compile project(':DBusJava')
+    compile project(':ev3classes')
+
+    compile 'net.java.dev.jna:jna:3.2.7'
 }
 
 jar {
-    def manifestAttrs = 'Rubiks Mindstorms'
     manifest {
+        attributes(
+                'Implementation-Title': "Gradle",
+                'Implementation-Version': version,
+                'Class-Path': "${lejosHome}/lib/ev3classes.jar ${lejosHome}/libjna/usr/share/java/jna.jar ${lejosHome}/lib/groovy-all-2.2.2.jar",
+                'Main-Class': mainClass
+        )
+//        attributes(
+//                "Implementation-Title": "Gradle",
+//                "Implementation-Version": version,
+//                "Main-Class":mainClass,
+//                "Class-Path":"${lejosHome}/lib/ev3classes.jar ${lejosHome}/libjna/usr/share/java/jna.jar ${lejosHome}/lib/groovy-all-2.2.2.jar")
     }
 }
 
@@ -45,7 +54,7 @@ task deployEV3 << {
     )
 
     ant.scp(
-            todir: ev3_username + '@' + ev3_server + ':/home/lejos/programs',
+            todir: ev3_username + '@' + ev3_server + ':' + lejosProgs,
             password: ev3_password,
             verbose: 'true',
             trust: true,
