@@ -1,0 +1,58 @@
+apply plugin: 'java'
+
+def libDir = './lib/'
+
+sourceCompatibility = 1.7
+version = '0.1'
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs libDir + lejos_dir
+    }
+}
+
+configurations {
+    sshAntTask
+    provided
+}
+
+sourceSets {
+    main.compileClasspath += configurations.provided
+    test.compileClasspath += configurations.provided
+    test.runtimeClasspath += configurations.provided
+}
+
+dependencies {
+    sshAntTask 'org.apache.ant:ant-jsch:1.9.4'
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    provided group: 'lejos', name: 'ev3classes', version: '1.0'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+jar {
+    def manifestAttrs = 'Rubiks Mindstorms'
+    manifest {
+    }
+}
+
+task deployEV3 << {
+    def knownHosts = File.createTempFile('knownhosts', 'txt')
+    ant.taskdef(
+            name: 'scp',
+            classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp',
+            classpath: configurations.sshAntTask.asPath
+    )
+
+    ant.scp(
+            todir: ev3_username + '@' + ev3_server + ':/home/lejos/programs',
+            password: ev3_password,
+            verbose: 'true',
+            trust: true,
+            knownhosts: knownHosts
+    ) {
+        fileset (dir: './build/libs') {
+            include(name: '**/*.jar')
+        }
+    }
+}
