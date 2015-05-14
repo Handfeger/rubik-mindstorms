@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/lib/lejos/DBusJava/DBusJava.iml" filepath="$PROJECT_DIR$/lib/lejos/DBusJava/DBusJava.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lejos.iml" filepath="$PROJECT_DIR$/Lejos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lib/lejos/ev3classes/ev3classes.iml" filepath="$PROJECT_DIR$/lib/lejos/ev3classes/ev3classes.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lejos/lejos.iml" filepath="$PROJECT_DIR$/lejos/lejos.iml" />
     </modules>
   </component>
 </project>
