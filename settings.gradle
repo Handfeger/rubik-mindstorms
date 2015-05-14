@@ -1,1 +1,9 @@
 rootProject.name = 'Lejos'
+
+def lejosLibDir = new File(rootDir, 'lib/lejos')
+
+include ':lejos:DBusJava'
+project (':lejos:DBusJava').projectDir = new File (lejosLibDir, 'DBusJava')
+
+include ':lejos:ev3classes'
+project (':lejos:ev3classes').projectDir = new File (lejosLibDir, 'ev3classes')

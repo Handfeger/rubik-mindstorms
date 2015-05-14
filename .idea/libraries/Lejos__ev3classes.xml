@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Lejos: ev3classes">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/lejos/ev3/ev3classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/lib/lejos/ev3classes/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/lejos/ev3classes/lib" recursive="false" />
   </library>
 </component>

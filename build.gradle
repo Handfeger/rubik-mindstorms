@@ -1,5 +1,9 @@
 apply plugin: 'java'
 
+subprojects {
+    apply plugin: 'java'
+}
+
 def libDir = './lib/'
 def lejosHome = '/home/root/lejos'
 def lejosProgs = '/home/lejos/programs'
@@ -23,10 +27,18 @@ dependencies {
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
     testCompile group: 'junit', name: 'junit', version: '4.11'
 
-    compile project(':DBusJava')
-    compile project(':ev3classes')
+    compile project(':lejos:DBusJava')
+    compile project(':lejos:ev3classes')
 
-    compile 'net.java.dev.jna:jna:3.2.7'
+    //compile 'net.java.dev.jna:jna:3.2.7'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/']
+        }
+    }
 }
 
 jar {
@@ -37,11 +49,6 @@ jar {
                 'Class-Path': "${lejosHome}/lib/ev3classes.jar ${lejosHome}/libjna/usr/share/java/jna.jar ${lejosHome}/lib/groovy-all-2.2.2.jar",
                 'Main-Class': mainClass
         )
-//        attributes(
-//                "Implementation-Title": "Gradle",
-//                "Implementation-Version": version,
-//                "Main-Class":mainClass,
-//                "Class-Path":"${lejosHome}/lib/ev3classes.jar ${lejosHome}/libjna/usr/share/java/jna.jar ${lejosHome}/lib/groovy-all-2.2.2.jar")
     }
 }
 

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Lejos: DBusJava">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/lejos/DBusJava/src" />
+    </SOURCES>
+  </library>
+</component>
