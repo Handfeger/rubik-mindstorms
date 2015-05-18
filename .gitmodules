@@ -1,0 +1,3 @@
+[submodule "lib/lejos"]
+	path = lib/lejos
+	url = git://git.code.sf.net/p/lejos/ev3/code
