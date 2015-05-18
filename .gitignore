@@ -21,8 +21,8 @@ hs_err_pid*
 # if you remove the above rule, at least ignore the following:
 
 # User-specific stuff:
-.idea/workspace.xml
-.idea/misc.xml
+#.idea/workspace.xml
+#.idea/misc.xml
 .idea/tasks.xml
 .idea/dictionaries
 
