@@ -1,4 +1,6 @@
+import de.michelvielmetter.lejos.Uebung1;
 import lejos.hardware.lcd.LCD;
+import lejos.hardware.motor.Motor;
 
 /**
  * ╔================================ Main ====================================
@@ -19,7 +21,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        System.out.println("test");
-        LCD.refresh();
+        Uebung1 ueb = new Uebung1();
     }
 }
