@@ -8,9 +8,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/lejos" />
-            <option value="$PROJECT_DIR$/lib/lejos/DBusJava" />
-            <option value="$PROJECT_DIR$/lib/lejos/ev3classes" />
           </set>
         </option>
       </GradleProjectSettings>
