@@ -5,58 +5,26 @@
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/lejos/DBusJava" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/lib/lejos/ev3classes" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3AndroidMenu" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3BumperCar" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3Chart" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3ColorTest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3GPS" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3GraphicsTest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3HelloWorld" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3MCLTest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3MapTest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3Menu" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3PairTest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3PilotParams" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3PilotTest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3PowerOff" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3RCXTest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3RMIClient" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3RMIServer" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3RemoteEV3" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3RemoteNXT" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3SensorMonitor" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3SensorSample" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3SensorTest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/EV3Splash" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/ev3installer" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/ev3menutools" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/ev3pcsamples" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/ev3release" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/ev3samples" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/ev3scripts" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/ev3snapshot" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/ev3tools" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/kernel" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/modules" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/org.lejos.ev3.example" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/org.lejos.ev3.ldt" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/org.lejos.ev3.ldt.feature" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/org.lejos.ev3.ldt.update-site" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/org.lejos.ev3.pcexample" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/lejos/sdcard" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.11" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-collections:commons-collections:3.2" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library name="Gradle: ev3classes">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/ev3built/ev3classes.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

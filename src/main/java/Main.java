@@ -1,4 +1,4 @@
-//import lejos.hardware.lcd.LCD;
+import lejos.hardware.lcd.LCD;
 
 /**
  * ╔================================ Main ====================================
@@ -20,6 +20,6 @@ public class Main
     public static void main(String[] args)
     {
         System.out.println("test");
-//        LCD.clear();
+        LCD.refresh();
     }
 }
