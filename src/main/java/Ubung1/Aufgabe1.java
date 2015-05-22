@@ -13,15 +13,15 @@ import ubung1.helper.*;
 public class Aufgabe1 {
     public static void Main() {
         float durchmesser = 5.7f;
-        float breite=13f;
+        float breite=12.1f;
         LCD.clear();
         LCD.drawString("Programm gestartet", 0, 3);
-        Button.waitForAnyPress();
-        LCD.drawString("Beschleunigen", 0, 5);
+        //Button.waitForAnyPress();
+       // LCD.drawString("Beschleunigen", 0, 5);
         Brick brick = BrickFinder.getDefault();
         EV3LargeRegulatedMotor rightMotor = new EV3LargeRegulatedMotor(brick.getPort("C"));
         EV3LargeRegulatedMotor leftMotor = new EV3LargeRegulatedMotor(brick.getPort("B"));
-        rightMotor.forward();
+        /*rightMotor.forward();
         leftMotor.forward();
         Button.waitForAnyPress();
         rightMotor.stop();
@@ -35,17 +35,15 @@ public class Aufgabe1 {
         LCD.clear();
         LCD.refresh();
         LCD.drawString("Drehen", 0, 5);
-        winkelberechung.drehen(90, breite, durchmesser, rightMotor);
-        Button.waitForAnyPress();
+        winkelberechung.drehen(90, breite, durchmesser, rightMotor);*/
         Button.waitForAnyPress();
         LCD.clear();
         LCD.refresh();
         LCD.drawString("Quadrat", 0, 5);
         for(int i=0; i<4; i++) {
-            laengenberechnung.cmFahren(10, durchmesser, rightMotor, leftMotor);
+            laengenberechnung.cmFahren(50, durchmesser, rightMotor, leftMotor);
             winkelberechung.drehen(90, breite, durchmesser, rightMotor);
         }
-        Button.waitForAnyPress();
         LCD.clear();
         LCD.refresh();
     }

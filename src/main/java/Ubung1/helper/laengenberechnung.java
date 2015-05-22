@@ -12,5 +12,11 @@ public class laengenberechnung {
         float umfang = umfang(durchmesser);
         motorrechts.rotate((int) (360 / umfang * cmleange), true);
         motorlinks.rotate((int) (360 / umfang * cmleange), true);
+        int y=(int)(cmleange/10);
+        try {
+            Thread.sleep(y*950);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

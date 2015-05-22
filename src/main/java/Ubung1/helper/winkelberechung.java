@@ -10,5 +10,10 @@ public class winkelberechung {
     public static void drehen(int winkel, float breite,float durchmesser, EV3LargeRegulatedMotor motor){
         float umfang=laengenberechnung.umfang(durchmesser);
         motor.rotate((int) (360 / umfang * ausererDurchmesser(winkel,breite)));
+        try {
+            Thread.sleep((int)(ausererDurchmesser(winkel,breite)/10)*999);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
