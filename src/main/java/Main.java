@@ -1,7 +1,3 @@
-import de.michelvielmetter.lejos.Uebung1;
-import lejos.hardware.lcd.LCD;
-import lejos.hardware.motor.Motor;
-
 /**
  * ╔================================ Main ====================================
  * ║
@@ -21,6 +17,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        Uebung1 ueb = new Uebung1();
+        de.michelvielmetter.lejos.uebung2.Main thread = new de.michelvielmetter.lejos.uebung2.Main("test");
     }
 }
