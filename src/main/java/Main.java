@@ -17,13 +17,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        try {
-            System.out.println("test start");
-            de.michelvielmetter.lejos.uebung2.Main thread = new de.michelvielmetter.lejos.uebung2.Main("test");
-            Thread.sleep(Integer.MAX_VALUE);
-            System.out.println("test end");
-        } catch (InterruptedException e) {
-            System.exit(0);
-        }
+        //TODO
     }
 }
