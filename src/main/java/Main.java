@@ -1,9 +1,5 @@
-import de.veravielmetter.lejos.Ubung1.Aufgabe1;
-import lejos.hardware.Brick;
-import lejos.hardware.BrickFinder;
-import lejos.hardware.Button;
-import lejos.hardware.lcd.LCD;
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import de.michelvielmetter.lejos.MainThread;
+import de.michelvielmetter.lejos.util.LejosHelper;
 
 /**
  * ╔================================ Main ====================================
@@ -24,6 +20,8 @@ public class Main
 {
     public static void main(String[] args)
     {
-
+        LejosHelper.init();
+        MainThread programm = new MainThread();
+        programm.start();
     }
 }
