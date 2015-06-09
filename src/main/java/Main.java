@@ -1,3 +1,6 @@
+import de.michelvielmetter.lejos.MainThread;
+import de.michelvielmetter.lejos.util.LejosHelper;
+
 /**
  * ╔================================ Main ====================================
  * ║
@@ -17,6 +20,8 @@ public class Main
 {
     public static void main(String[] args)
     {
-        //TODO
+        LejosHelper.init();
+        MainThread programm = new MainThread();
+        programm.start();
     }
 }
