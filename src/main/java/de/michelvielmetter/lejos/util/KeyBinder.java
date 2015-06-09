@@ -1,9 +1,9 @@
 package de.michelvielmetter.lejos.util;
 
 import lejos.hardware.Brick;
+import lejos.hardware.Key;
+import lejos.hardware.KeyListener;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 /**
@@ -27,11 +27,11 @@ public class KeyBinder
     private Brick brick;
     private Display display;
 
-    private LinkedList<ActionListener> listeners;
+    private LinkedList<KeyListener> listeners;
 
     public KeyBinder(Brick brick)
     {
-        brick = brick;
+        this.brick = brick;
         display = null;
         print = false;
 
@@ -40,9 +40,9 @@ public class KeyBinder
 
     public KeyBinder(Brick brick, Display display, boolean print)
     {
-        brick = brick;
-        display = display;
-        print = print;
+        this.brick = brick;
+        this.display = display;
+        this.print = print;
 
         setup();
     }
@@ -55,19 +55,28 @@ public class KeyBinder
 
     public void addCancelKey()
     {
-        add("Escape", "Quit", new ActionListener()
+        System.out.println("adding cancel key");
+        addKey("Escape", "Quit", new KeyListener()
         {
             @Override
-            public void actionPerformed(ActionEvent e)
+            public void keyPressed(Key key)
             {
-                // TODO
+                System.exit(0);
+            }
+
+            @Override
+            public void keyReleased(Key key)
+            {
+
             }
         });
     }
 
-    public void add(String buttonType, String description, ActionListener e)
+    public void addKey(String buttonType, String description, KeyListener listener)
     {
-        listeners.add(e);
+        listeners.add(listener);
+
+        brick.getKey(buttonType).addKeyListener(listener);
 
         printButton(buttonType, description);
     }

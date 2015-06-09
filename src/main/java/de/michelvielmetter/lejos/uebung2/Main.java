@@ -1,10 +1,11 @@
 package de.michelvielmetter.lejos.uebung2;
 
+import de.michelvielmetter.lejos.util.LejosHelper;
+import de.michelvielmetter.lejos.util.helper.ColorSensorHelper;
+import de.michelvielmetter.lejos.util.helper.MotorHelper;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import lejos.robotics.Color;
 
 /**
  * ╔================================ Main ====================================
@@ -25,20 +26,12 @@ public class Main
 {
     public Main(String name)
     {
-        try {
-            ExecutorService service = Executors.newCachedThreadPool();
-            Brick brick = BrickFinder.getDefault();
-            TestThread thread1 = service.submit(new TestThread("Test-1"));
-            TestThread thread2 = service.submit(new TestThread("Test-2"));
-
-
-
-            Thread.sleep(3000);
-
-            Thread.sleep(1000);
-
-        } catch (InterruptedException e) {
-            System.out.print("Alles zuende");
-        }
+        LejosHelper.init();
+//        MotorHelper[] leftMotor = {LejosHelper.getLargeMotor("B")};
+//        MotorHelper[] rightMotor = {LejosHelper.getLargeMotor("C")};
+//        ColorSensorHelper lightSensor = LejosHelper.getColorSensor("S2");
+//
+//        lightSensor.moveMotorWhileColorLevel(leftMotor, Color.WHITE);
+//        lightSensor.moveMotorWhileColorLevel(rightMotor, Color.BLACK);
     }
 }
