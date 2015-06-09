@@ -23,7 +23,9 @@
           <root url="jar://$MODULE_DIR$/lib/ev3built/ev3classes.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/lib/lejos/ev3classes/src" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>

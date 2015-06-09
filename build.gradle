@@ -50,7 +50,7 @@ jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
-task deployEV3 << {
+task deployEV3(dependsOn: 'build') << {
     def knownHosts = File.createTempFile('knownhosts', 'txt')
     ant.taskdef(
             name: 'scp',
