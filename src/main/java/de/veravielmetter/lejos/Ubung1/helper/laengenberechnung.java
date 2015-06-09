@@ -1,4 +1,4 @@
-package ubung1.helper;
+package de.veravielmetter.lejos.Ubung1.helper;
 
 
 import lejos.hardware.motor.EV3LargeRegulatedMotor;

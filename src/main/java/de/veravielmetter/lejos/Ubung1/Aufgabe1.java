@@ -1,17 +1,17 @@
-package ubung1;
+package de.veravielmetter.lejos.Ubung1;
 
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import ubung1.helper.*;
+import de.veravielmetter.lejos.Ubung1.helper.*;
 
 /**
  * Created by Vera on 19.05.15.
  */
 public class Aufgabe1 {
-    public static void Main() {
+    public Aufgabe1() {
         float durchmesser = 5.7f;
         float breite=12.1f;
         LCD.clear();

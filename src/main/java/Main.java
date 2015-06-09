@@ -1,9 +1,9 @@
+import de.veravielmetter.lejos.Ubung1.Aufgabe1;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import ubung1.Aufgabe1;
 
 /**
  * ╔================================ Main ====================================
@@ -24,6 +24,6 @@ public class Main
 {
     public static void main(String[] args)
     {
-        Aufgabe1.Main();
+
     }
 }
