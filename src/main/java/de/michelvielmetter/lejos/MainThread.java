@@ -1,6 +1,7 @@
 package de.michelvielmetter.lejos;
 
 import de.michelvielmetter.lejos.util.LejosHelper;
+import de.veravielmetter.lejos.Ubung2.Aufgabe1;
 
 /**
  * ╔================================ MainThread ====================================
@@ -24,7 +25,7 @@ public class MainThread extends Thread
         LejosHelper.init();
 
 
-        // add your code here
+        new Aufgabe1();
 
 
         while (true) {

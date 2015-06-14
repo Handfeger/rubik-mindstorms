@@ -1,5 +1,6 @@
 package de.veravielmetter.lejos.Ubung2;
 
+import de.michelvielmetter.lejos.util.Display;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.Button;
