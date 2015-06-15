@@ -34,7 +34,6 @@ public class MotorThread extends Thread
 
     public void run() throws MissingFormatArgumentException
     {
-        interruptedLoop:
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 switch (action) {
@@ -42,9 +41,10 @@ public class MotorThread extends Thread
                         forward();
                         break;
                     default:
-                        break interruptedLoop;
+                        throw new MissingFormatArgumentException("Action \"" + action + "\" not supported");
                 }
             } catch (InterruptedException e) {
+                motor.stop();
                 break;
             }
         }
@@ -63,6 +63,7 @@ public class MotorThread extends Thread
         synchronized (motor) {
         motor.forward();
         Thread.sleep(seconds);}
+        motor.stop();
     }
 
     public void setAction(String action)

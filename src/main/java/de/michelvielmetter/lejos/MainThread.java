@@ -1,6 +1,9 @@
 package de.michelvielmetter.lejos;
 
 import de.michelvielmetter.lejos.util.LejosHelper;
+import de.michelvielmetter.lejos.util.helper.ColorSensorHelper;
+import de.michelvielmetter.lejos.util.helper.MotorHelper;
+import lejos.robotics.Color;
 
 /**
  * ╔================================ MainThread ====================================
@@ -24,8 +27,20 @@ public class MainThread extends Thread
         LejosHelper.init();
 
 
-        // add your code here
+        MotorHelper[] leftMotor = {LejosHelper.getLargeMotor("B")};
+        MotorHelper[] rightMotor = {LejosHelper.getLargeMotor("C")};
+        ColorSensorHelper lightSensor = LejosHelper.getColorSensor("S3");
 
+        lightSensor.moveMotorWhileColorLevel(leftMotor, Color.WHITE, "forward");
+        lightSensor.moveMotorWhileColorLevel(rightMotor, Color.BLACK, "forward");
+
+//        for (MotorHelper motor : leftMotor) {
+//            motor.forward();
+//        }
+//
+//        for (MotorHelper motor: rightMotor) {
+//            motor.forward();
+//        }
 
         while (true) {
             try {

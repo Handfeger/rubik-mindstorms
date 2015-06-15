@@ -7,6 +7,8 @@ import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.port.Port;
 
+import java.util.LinkedList;
+
 /**
  * ╔================================ LejosHelper ====================================
  * ║
@@ -91,6 +93,7 @@ public class LejosHelper
             switch (type) {
                 case "color":
                     sensors[SensorHelper.portToInt(port)] = new ColorSensorHelper(port);
+                    break;
                 default:
                     throw new IllegalArgumentException("This Sensor Type is not supported");
             }
@@ -104,7 +107,8 @@ public class LejosHelper
         if (init) {
             return;
         }
-        keyBinder = new KeyBinder(BrickFinder.getDefault());
+        Brick brick = BrickFinder.getDefault();
+        keyBinder = new KeyBinder(brick, new Display(brick), true);
 
         init = true;
     }

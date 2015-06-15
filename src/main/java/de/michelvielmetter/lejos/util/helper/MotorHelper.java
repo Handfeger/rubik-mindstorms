@@ -27,6 +27,8 @@ public class MotorHelper
 
     private MotorThread thread;
 
+    private boolean running = false;
+
     public MotorHelper(Port port, String size) throws IllegalArgumentException
     {
         switch (size) {
@@ -41,6 +43,16 @@ public class MotorHelper
         }
     }
 
+    public void backward()
+    {
+        backward(Integer.MAX_VALUE);
+    }
+
+    public void backward(int seconds)
+    {
+        move(seconds, "backward");
+    }
+
     public void forward()
     {
         forward(Integer.MAX_VALUE);
@@ -48,12 +60,34 @@ public class MotorHelper
 
     public void forward(int seconds)
     {
+        move(seconds, "forward");
+    }
+
+    public void move(String direction)
+    {
+        move(Integer.MAX_VALUE, direction);
+    }
+
+    public void move(int seconds, String direction)
+    {
+        if (running) {
+            stop();
+        }
+
         MotorThread thread = getNewThread();
 
-        thread.setAction("forward");
+        thread.setAction(direction);
         thread.setSeconds(seconds);
 
+        running = true;
+
         thread.start();
+    }
+
+    public void stop()
+    {
+        getMotorThread().interrupt();
+        running = false;
     }
 
     public MotorThread getMotorThread()
@@ -70,6 +104,11 @@ public class MotorHelper
         thread = new MotorThread(motor);
 
         return thread;
+    }
+
+    public boolean isRunning()
+    {
+        return running;
     }
 
     public static int portToInt(Port port) throws IllegalArgumentException
