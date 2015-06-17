@@ -1,10 +1,8 @@
 package de.michelvielmetter.lejos.util.helper;
 
 import de.michelvielmetter.lejos.util.thread.ColorSensorThread;
-import de.michelvielmetter.lejos.util.thread.MotorThread;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;
-import lejos.hardware.sensor.SensorMode;
 
 import java.util.LinkedList;
 
@@ -27,39 +25,40 @@ public class ColorSensorHelper extends SensorHelper
 {
     private EV3ColorSensor sensor;
 
-    private LinkedList<ColorSensorThread> threads = new LinkedList<>();
+    private ColorSensorThread thread;
 
     public ColorSensorHelper(Port port)
     {
         this.sensor = new EV3ColorSensor(port);
     }
 
-    public ColorSensorThread moveMotorWhileColorLevel(MotorHelper[] motors, int level)
+    public ColorSensorThread moveMotorWhileColorLevel(MotorHelper[] motors, int level, String direction)
     {
-        SensorMode mode = sensor.getColorIDMode();
+        if (thread == null) {
+            newThread();
+        }
 
-        ColorSensorThread thread = newThread();
+        LinkedList<Object> list = new LinkedList<>();
+        list.push("moveMotor");
+        list.push(motors);
+        list.push(direction);
 
-        thread.setMode("motorColorId");
+        thread.addColorIdMode(level, list);
+
+        thread.start();
 
         return thread;
     }
 
     private ColorSensorThread newThread()
     {
-        ColorSensorThread thread = new ColorSensorThread(sensor);
-
-        threads.push(thread);
+        thread = new ColorSensorThread(sensor);
 
         return thread;
     }
 
     public void stop()
     {
-        for (ColorSensorThread thread : threads) {
-            thread.interrupt();
-        }
-
-        threads = new LinkedList<>();
+        thread.interrupt();
     }
 }

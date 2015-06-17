@@ -55,7 +55,6 @@ public class KeyBinder
 
     public void addCancelKey()
     {
-        System.out.println("adding cancel key");
         addKey("Escape", "Quit", new KeyListener()
         {
             @Override

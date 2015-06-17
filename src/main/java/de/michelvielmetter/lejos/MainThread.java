@@ -1,6 +1,9 @@
 package de.michelvielmetter.lejos;
 
 import de.michelvielmetter.lejos.util.LejosHelper;
+import de.michelvielmetter.lejos.util.helper.ColorSensorHelper;
+import de.michelvielmetter.lejos.util.helper.MotorHelper;
+import lejos.robotics.Color;
 
 /**
  * ╔================================ MainThread ====================================
@@ -22,17 +25,5 @@ public class MainThread extends Thread
     public void run()
     {
         LejosHelper.init();
-
-
-        // add your code here
-
-
-        while (true) {
-            try {
-                Thread.sleep(Integer.MAX_VALUE);
-            } catch (InterruptedException e) {
-                System.exit(0);
-            }
-        }
     }
 }
