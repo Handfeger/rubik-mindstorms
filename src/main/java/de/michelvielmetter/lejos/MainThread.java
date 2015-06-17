@@ -25,29 +25,5 @@ public class MainThread extends Thread
     public void run()
     {
         LejosHelper.init();
-
-
-        MotorHelper[] leftMotor = {LejosHelper.getLargeMotor("B")};
-        MotorHelper[] rightMotor = {LejosHelper.getLargeMotor("C")};
-        ColorSensorHelper lightSensor = LejosHelper.getColorSensor("S3");
-
-        lightSensor.moveMotorWhileColorLevel(leftMotor, Color.WHITE, "forward");
-        lightSensor.moveMotorWhileColorLevel(rightMotor, Color.BLACK, "forward");
-
-//        for (MotorHelper motor : leftMotor) {
-//            motor.forward();
-//        }
-//
-//        for (MotorHelper motor: rightMotor) {
-//            motor.forward();
-//        }
-
-        while (true) {
-            try {
-                Thread.sleep(Integer.MAX_VALUE);
-            } catch (InterruptedException e) {
-                System.exit(0);
-            }
-        }
     }
 }
