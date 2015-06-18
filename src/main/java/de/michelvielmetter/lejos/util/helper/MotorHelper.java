@@ -126,4 +126,9 @@ public class MotorHelper
                 throw new IllegalArgumentException("No such Motor port");
         }
     }
+
+    public void rotate(int degrees)
+    {
+        // TODO
+    }
 }
