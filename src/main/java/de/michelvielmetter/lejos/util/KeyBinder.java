@@ -86,7 +86,6 @@ public class KeyBinder
             return;
         }
         int line = 1;
-        // TODO make buttons printable
         switch (type) {
             case "Up":
                 line = 3;
@@ -110,8 +109,9 @@ public class KeyBinder
             default:
                 break;
         }
-        display.draw(type + ":", line, 1);
-        display.draw(name, line, 7);
+
+        display.drawString(type + ":", line, 1);
+        display.drawString(name, line, 7*10);
         //
     }
 }
