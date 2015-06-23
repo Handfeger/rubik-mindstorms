@@ -49,8 +49,8 @@ public class RubikCube
     // MOVEMENTS
     public boolean y()
     {
-        getSide(RubikSide.LEFT).clockwise();
-        getSide(RubikSide.RIGHT).counterClockwise();
+        getSide(RubikSide.LEFT).counterClockwise();
+        getSide(RubikSide.RIGHT).clockwise();
         RubikSide side = getSide(RubikSide.TOP);
         int i = RubikSide.TOP;
         while (side != null) {
