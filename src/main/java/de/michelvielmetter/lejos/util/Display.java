@@ -86,6 +86,6 @@ public class Display
 
     private int translateLine(int line)
     {
-        return (line - 1) * 5 + 1;
+        return (line - 1) * 16 + 1;
     }
 }
