@@ -6,6 +6,7 @@ import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.Key;
 import lejos.hardware.KeyListener;
+import lejos.hardware.motor.Motor;
 
 /**
  * ╔================================ RubikSolver ====================================
@@ -32,9 +33,14 @@ public class RubikSolver extends Thread
     private RubikCube cube;
     private Display display;
 
-    public final boolean debug = true;
+    public final boolean debug;
 
     public RubikSolver()
+    {
+        this(false);
+    }
+
+    public RubikSolver(boolean debug)
     {
         brick = BrickFinder.getDefault();
         arm = new Arm(this);
@@ -47,6 +53,7 @@ public class RubikSolver extends Thread
         colorArm.start();
         table.start();
 
+        this.debug = debug;
     }
 
     public void run()
@@ -55,28 +62,48 @@ public class RubikSolver extends Thread
         if (debug) {
             LejosHelper.getKeyBinder().addKey("Enter", "Debug", new KeyListener()
             {
+                private int currentSide = RubikSide.TOP;
                 @Override
                 public void keyPressed(Key k)
                 {
-                    printSide(cube.getSide(RubikSide.TOP));
+
                 }
 
                 @Override
                 public void keyReleased(Key k)
                 {
-
+                    LejosHelper.getKeyBinder().setInMenu(true);
+                    printSide(cube.getSide(currentSide++));
+                    if (currentSide > 5) {
+                        currentSide = RubikSide.TOP;
+                    }
                 }
             });
         }
 
-        // TODO Read Color
+        // TODO find zero positions
+
+        LejosHelper.getKeyBinder().addKey("Up", "Read Color", new KeyListener()
+        {
+            @Override
+            public void keyPressed(Key k)
+            {
+
+            }
+
+            @Override
+            public void keyReleased(Key k)
+            {
+                cube.readSides();
+            }
+        });
 
         // TODO Find Algorithm
 
         // TODO Solve
 
         try {
-            Thread.sleep(Integer.MAX_VALUE);
+            Thread.sleep(60000);
         } catch (Exception e) {
             // nix
         }

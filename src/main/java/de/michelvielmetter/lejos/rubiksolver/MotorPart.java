@@ -27,6 +27,11 @@ public abstract class MotorPart extends Thread
 
     private int locked = 0;
 
+    protected int getZero()
+    {
+        return -zero;
+    }
+
     private int zero = 0;
 
     private MotorHelper motor;
@@ -92,4 +97,5 @@ public abstract class MotorPart extends Thread
     protected abstract void lockDependants();
 
     protected abstract void releaseDependants();
+
 }

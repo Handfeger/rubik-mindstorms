@@ -28,6 +28,6 @@ public class MainThread extends Thread
     {
         LejosHelper.init();
 
-        new RubikSolver().start();
+        new RubikSolver(true).start();
     }
 }

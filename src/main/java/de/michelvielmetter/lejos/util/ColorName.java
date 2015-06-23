@@ -87,11 +87,11 @@ public class ColorName
             case Color.CYAN:
                 return 'c';
             case Color.BROWN:
-                return 'b';
+                return 'n';
             case Color.NONE:
-                return 'n';
+                return '-';
             default:
-                return 'n';
+                return '-';
         }
     }
 }

@@ -1,5 +1,9 @@
 package de.michelvielmetter.lejos.rubiksolver;
 
+import de.michelvielmetter.lejos.util.LejosHelper;
+
+import javax.activity.InvalidActivityException;
+
 /**
  * ╔================================ RubikCube ====================================
  * ║
@@ -49,6 +53,27 @@ public class RubikCube
     // MOVEMENTS
     public boolean y()
     {
+        return y(true);
+    }
+
+    public boolean y(int times)
+    {
+        return y(times, true);
+    }
+
+    public boolean y(int times, boolean toZero)
+    {
+        for (int i = 0; i < times-1; i++) {
+            if (!y(false)) {
+                return false;
+            }
+        }
+
+        return y(toZero);
+    }
+
+    public boolean y(boolean toZero)
+    {
         getSide(RubikSide.LEFT).counterClockwise();
         getSide(RubikSide.RIGHT).clockwise();
         RubikSide side = getSide(RubikSide.TOP);
@@ -59,17 +84,15 @@ public class RubikCube
             }
             side = setSide(side, ++i);
         }
-        return true;
-    }
 
-    public boolean y(int times)
-    {
-        for (int i = 0; i < times; i++) {
-            if (!y()) {
-                return false;
-            }
+        try {
+            solver.getArm().rotateCube(toZero);
+        } catch (InvalidActivityException e) {
+            LejosHelper.getDisplay().clear();
+            e.printStackTrace();
+            return false;
         }
-        
+
         return true;
     }
 
@@ -102,6 +125,17 @@ public class RubikCube
             if (!counterClockwise()) {
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    public boolean readSides()
+    {
+        RubikSide[] sides = this.sides.clone();
+
+        for (RubikSide side : sides) {
+            side.getColors();
         }
 
         return true;

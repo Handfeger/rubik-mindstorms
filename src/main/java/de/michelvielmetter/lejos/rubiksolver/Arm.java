@@ -1,7 +1,8 @@
 package de.michelvielmetter.lejos.rubiksolver;
 
 import de.michelvielmetter.lejos.util.LejosHelper;
-import de.michelvielmetter.lejos.util.helper.MotorHelper;
+
+import javax.activity.InvalidActivityException;
 
 /**
  * ╔================================ Arm ====================================
@@ -20,9 +21,13 @@ import de.michelvielmetter.lejos.util.helper.MotorHelper;
  */
 public class Arm extends MotorPart
 {
+    public static final int POS1 = 110;
+    public static final int POS2 = 200;
+
     public Arm (RubikSolver rubik)
     {
         super(rubik, LejosHelper.getLargeMotor("A", rubik.getBrick()));
+        // TODO set speed
     }
 
     @Override
@@ -49,5 +54,18 @@ public class Arm extends MotorPart
     {
         this.getRubik().getColorArm().release();
         this.getRubik().getTable().release();
+    }
+
+    public void rotateCube(boolean toZero) throws InvalidActivityException
+    {
+        if (getZero() != 0 && getZero() != Arm.POS1) {
+            goToZero();
+        }
+        rotate(Arm.POS2 - getZero());
+        if (toZero) {
+            goToZero();
+        } else {
+            rotate(Arm.POS1 - getZero());
+        }
     }
 }
