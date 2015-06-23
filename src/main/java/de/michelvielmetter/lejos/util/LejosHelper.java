@@ -33,6 +33,8 @@ public class LejosHelper
     private static MotorHelper[] motors = new MotorHelper[4];
     private static SensorHelper[] sensors = new SensorHelper[4];
 
+    private static Display display;
+
     public static MotorHelper getLargeMotor(String port)
     {
         return getLargeMotor(port, BrickFinder.getDefault());
@@ -102,13 +104,24 @@ public class LejosHelper
         return sensors[SensorHelper.portToInt(port)];
     }
 
+    public static Display getDisplay()
+    {
+        return display;
+    }
+
+    public static KeyBinder getKeyBinder()
+    {
+        return keyBinder;
+    }
+
     public static void init()
     {
         if (init) {
             return;
         }
         Brick brick = BrickFinder.getDefault();
-        keyBinder = new KeyBinder(brick, new Display(brick), true);
+        display = new Display(brick);
+        keyBinder = new KeyBinder(brick, display, true);
 
         init = true;
     }

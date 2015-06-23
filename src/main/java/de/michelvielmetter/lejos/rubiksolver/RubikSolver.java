@@ -1,7 +1,11 @@
 package de.michelvielmetter.lejos.rubiksolver;
 
+import de.michelvielmetter.lejos.util.Display;
+import de.michelvielmetter.lejos.util.LejosHelper;
 import lejos.hardware.Brick;
 import lejos.hardware.BrickFinder;
+import lejos.hardware.Key;
+import lejos.hardware.KeyListener;
 
 /**
  * ╔================================ RubikSolver ====================================
@@ -26,6 +30,9 @@ public class RubikSolver extends Thread
     private ColorArm colorArm;
     private Table table;
     private RubikCube cube;
+    private Display display;
+
+    public final boolean debug = true;
 
     public RubikSolver()
     {
@@ -34,21 +41,50 @@ public class RubikSolver extends Thread
         colorArm = new ColorArm(this);
         table = new Table(this);
         cube = new RubikCube(this);
+        display = LejosHelper.getDisplay();
 
         arm.start();
         colorArm.start();
         table.start();
+
     }
 
     public void run()
     {
-        // TODO bind debugkey ALS ERSTES!!!!!!!
+        // Debug
+        if (debug) {
+            LejosHelper.getKeyBinder().addKey("Enter", "Debug", new KeyListener()
+            {
+                @Override
+                public void keyPressed(Key k)
+                {
+                    printSide(cube.getSide(RubikSide.TOP));
+                }
+
+                @Override
+                public void keyReleased(Key k)
+                {
+
+                }
+            });
+        }
 
         // TODO Read Color
 
         // TODO Find Algorithm
 
         // TODO Solve
+
+        try {
+            Thread.sleep(Integer.MAX_VALUE);
+        } catch (Exception e) {
+            // nix
+        }
+    }
+
+    public void printSide(RubikSide side)
+    {
+        side.print(display);
     }
 
     public Brick getBrick()

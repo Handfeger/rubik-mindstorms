@@ -1,5 +1,7 @@
 package de.michelvielmetter.lejos.rubiksolver;
 
+import de.michelvielmetter.lejos.util.Display;
+
 /**
  * ╔================================ RubikSide ====================================
  * ║
@@ -120,5 +122,10 @@ public class RubikSide
     public int getCurrentSide()
     {
         return currentSide;
+    }
+
+    public void print(Display display)
+    {
+        display.draw("test" + Integer.toString(currentSide));
     }
 }
