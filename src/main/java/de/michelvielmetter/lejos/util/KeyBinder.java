@@ -27,8 +27,6 @@ public class KeyBinder
     private Brick brick;
     private Display display;
 
-    private LinkedList<KeyListener> listeners;
-
     public KeyBinder(Brick brick)
     {
         this.brick = brick;
@@ -49,7 +47,6 @@ public class KeyBinder
 
     private void setup()
     {
-        listeners = new LinkedList<>();
         addCancelKey();
     }
 
@@ -73,8 +70,6 @@ public class KeyBinder
 
     public void addKey(String buttonType, String description, KeyListener listener)
     {
-        listeners.add(listener);
-
         brick.getKey(buttonType).addKeyListener(listener);
 
         printButton(buttonType, description);
@@ -112,6 +107,5 @@ public class KeyBinder
 
         display.drawString(type + ":", line, 1);
         display.drawString(name, line, 7*10);
-        //
     }
 }
