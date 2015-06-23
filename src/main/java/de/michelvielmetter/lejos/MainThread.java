@@ -26,10 +26,12 @@ public class MainThread extends Thread
 
         new RubikSolver(true).start();
 
-        try {
-            Thread.sleep(60000);
-        } catch (Exception e) {
-            System.exit(0);
+        while (true) {
+            try {
+                Thread.sleep(60000);
+            } catch (Exception e) {
+                System.exit(0);
+            }
         }
     }
 }
