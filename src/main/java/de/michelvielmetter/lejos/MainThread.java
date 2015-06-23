@@ -2,10 +2,6 @@ package de.michelvielmetter.lejos;
 
 import de.michelvielmetter.lejos.rubiksolver.RubikSolver;
 import de.michelvielmetter.lejos.util.LejosHelper;
-import de.michelvielmetter.lejos.util.helper.ColorSensorHelper;
-import de.michelvielmetter.lejos.util.helper.MotorHelper;
-import lejos.hardware.motor.Motor;
-import lejos.robotics.Color;
 
 /**
  * ╔================================ MainThread ====================================
@@ -29,5 +25,11 @@ public class MainThread extends Thread
         LejosHelper.init();
 
         new RubikSolver(true).start();
+
+        try {
+            Thread.sleep(60000);
+        } catch (Exception e) {
+            System.exit(0);
+        }
     }
 }
