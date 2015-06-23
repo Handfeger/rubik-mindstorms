@@ -56,4 +56,42 @@ public class ColorName
                 return "unknown";
         }
     }
+
+    public static char colorChar(int ColorId)
+    {
+        switch (ColorId) {
+            case Color.RED:
+                return 'R';
+            case Color.GREEN:
+                return 'G';
+            case Color.BLUE:
+                return 'B';
+            case Color.YELLOW:
+                return 'Y';
+            case Color.MAGENTA:
+                return 'M';
+            case Color.ORANGE:
+                return 'O';
+            case Color.WHITE:
+                return 'W';
+            case Color.BLACK:
+                return 'B';
+            case Color.PINK:
+                return 'p';
+            case Color.GRAY:
+                return 'b';
+            case Color.LIGHT_GRAY:
+                return 'g';
+            case Color.DARK_GRAY:
+                return 'd';
+            case Color.CYAN:
+                return 'c';
+            case Color.BROWN:
+                return 'b';
+            case Color.NONE:
+                return 'n';
+            default:
+                return 'n';
+        }
+    }
 }
