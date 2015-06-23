@@ -27,8 +27,6 @@ public class KeyBinder
     private Brick brick;
     private Display display;
 
-    private LinkedList<KeyListener> listeners;
-
     public KeyBinder(Brick brick)
     {
         this.brick = brick;
@@ -49,7 +47,6 @@ public class KeyBinder
 
     private void setup()
     {
-        listeners = new LinkedList<>();
         addCancelKey();
     }
 
@@ -73,8 +70,6 @@ public class KeyBinder
 
     public void addKey(String buttonType, String description, KeyListener listener)
     {
-        listeners.add(listener);
-
         brick.getKey(buttonType).addKeyListener(listener);
 
         printButton(buttonType, description);
@@ -86,7 +81,6 @@ public class KeyBinder
             return;
         }
         int line = 1;
-        // TODO make buttons printable
         switch (type) {
             case "Up":
                 line = 3;
@@ -110,8 +104,8 @@ public class KeyBinder
             default:
                 break;
         }
-        display.draw(type + ":", line, 1);
-        display.draw(name, line, 7);
-        //
+
+        display.drawString(type + ":", line, 1);
+        display.drawString(name, line, 7*10);
     }
 }
