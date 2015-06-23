@@ -25,6 +25,7 @@ public class RubikSolver extends Thread
     private Arm arm;
     private ColorArm colorArm;
     private Table table;
+    private RubikCube cube;
 
     public RubikSolver()
     {
@@ -32,6 +33,7 @@ public class RubikSolver extends Thread
         arm = new Arm(this);
         colorArm = new ColorArm(this);
         table = new Table(this);
+        cube = new RubikCube(this);
 
         arm.start();
         colorArm.start();
@@ -40,7 +42,13 @@ public class RubikSolver extends Thread
 
     public void run()
     {
+        // TODO bind debugkey ALS ERSTES!!!!!!!
 
+        // TODO Read Color
+
+        // TODO Find Algorithm
+
+        // TODO Solve
     }
 
     public Brick getBrick()
