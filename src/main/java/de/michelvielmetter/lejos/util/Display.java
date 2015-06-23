@@ -27,7 +27,7 @@ public class Display
         this.autoRefresh = autoRefresh;
     }
 
-    private boolean autoRefresh = false;
+    private boolean autoRefresh = true;
 
     public Display(Brick brick)
     {
@@ -41,23 +41,23 @@ public class Display
     }
 
 
-    public void draw(String text, int line, int xPos)
+    public void drawString(String text, int line, int xPos)
     {
-        lcd.drawString(text, xPos, line, GraphicsLCD.LEFT);
+        lcd.drawString(text, xPos, translateLine(line), GraphicsLCD.LEFT);
 
         refresh(true);
     }
 
-    public void draw(String text, int line)
+    public void drawString(String text, int line)
     {
-        lcd.drawString(text, 0, line, GraphicsLCD.HCENTER);
+        drawString(text, line, 1);
 
         refresh(true);
     }
 
-    public void draw(String text)
+    public void drawString(String text)
     {
-        lcd.drawString(text, 1, 5, GraphicsLCD.HCENTER | GraphicsLCD.VCENTER);
+        drawString(text, 1, 1);
 
         refresh(true);
     }
@@ -65,6 +65,8 @@ public class Display
     public void clear()
     {
         lcd.clear();
+
+        refresh(true);
     }
 
     public boolean refresh()
@@ -80,5 +82,10 @@ public class Display
         lcd.refresh();
 
         return true;
+    }
+
+    private int translateLine(int line)
+    {
+        return (line - 1) * 16 + 1;
     }
 }
