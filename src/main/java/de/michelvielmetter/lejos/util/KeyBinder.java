@@ -73,7 +73,7 @@ public class KeyBinder
         });
     }
 
-    public KeyBinder addKey(String buttonType, String description, KeyListener listener)
+    public void addKey(String buttonType, String description, KeyListener listener)
     {
         Key key = brick.getKey(buttonType);
         if (buttons.containsKey(buttonType)) {
@@ -84,8 +84,6 @@ public class KeyBinder
         buttons.put(buttonType, description);
 
         printButton(buttonType, description);
-
-        return this;
     }
 
     private void printAllButtons()
@@ -95,6 +93,8 @@ public class KeyBinder
         for (Map.Entry<String, String> entry : buttons.entrySet()) {
             printButton(entry.getKey(), entry.getValue());
         }
+        display.setAutoRefresh(true);
+        display.refresh();
     }
 
     private void printButton(String type, String name)

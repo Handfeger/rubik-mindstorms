@@ -19,6 +19,10 @@ import de.michelvielmetter.lejos.util.LejosHelper;
  */
 public class ColorArm extends MotorPart
 {
+    public static final int POS_MIDDLE = -620;
+    public static final int POS_EDGE = -540;
+    public static final int POS_CORNER = -480;
+
 
     public ColorArm(RubikSolver rubik)
     {

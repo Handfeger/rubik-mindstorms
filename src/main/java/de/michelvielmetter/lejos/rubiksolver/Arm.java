@@ -24,7 +24,7 @@ public class Arm extends MotorPart
     public static final int POS1 = 110;
     public static final int POS2 = 200;
 
-    public Arm (RubikSolver rubik)
+    public Arm(RubikSolver rubik)
     {
         super(rubik, LejosHelper.getLargeMotor("A", rubik.getBrick()));
         // TODO set speed
@@ -61,11 +61,18 @@ public class Arm extends MotorPart
         if (getZero() != 0 && getZero() != Arm.POS1) {
             goToZero();
         }
-        rotate(Arm.POS2 - getZero());
+        goToPos(Arm.POS2);
         if (toZero) {
             goToZero();
         } else {
-            rotate(Arm.POS1 - getZero());
+            goToPos(Arm.POS1);
         }
+    }
+
+    public void fixCubPos() throws InvalidActivityException
+    {
+        goToZero();
+        goToPos(Arm.POS1);
+        goToZero();
     }
 }

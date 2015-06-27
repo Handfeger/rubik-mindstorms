@@ -42,14 +42,17 @@ public class RubikCube
 
     public RubikSide setSide(RubikSide side, int newSide)
     {
-        return null;
+        RubikSide current = getSide(newSide);
+        side.setCurrentSide(newSide);
+        sides[newSide] = side;
+        return current;
     }
 
     public RubikSolver getSolver()
     {
         return solver;
     }
-    
+
     // MOVEMENTS
     public boolean y()
     {
@@ -63,7 +66,7 @@ public class RubikCube
 
     public boolean y(int times, boolean toZero)
     {
-        for (int i = 0; i < times-1; i++) {
+        for (int i = 0; i < times - 1; i++) {
             if (!y(false)) {
                 return false;
             }
@@ -77,12 +80,18 @@ public class RubikCube
         getSide(RubikSide.LEFT).counterClockwise();
         getSide(RubikSide.RIGHT).clockwise();
         RubikSide side = getSide(RubikSide.TOP);
+        sides[RubikSide.TOP] = null;
+
         int i = RubikSide.TOP;
         while (side != null) {
             if (side.getCurrentSide() == RubikSide.FRONT || side.getCurrentSide() == RubikSide.DOWN) {
                 side.clockwise(2);
             }
-            side = setSide(side, ++i);
+            if (i == 3) {
+                side = setSide(side, RubikSide.TOP);
+            } else {
+                side = setSide(side, ++i);
+            }
         }
 
         try {
@@ -93,12 +102,6 @@ public class RubikCube
             return false;
         }
 
-        return true;
-    }
-
-    public boolean clockwise()
-    {
-        // TODO rotate clockwise
         return true;
     }
 
@@ -113,9 +116,36 @@ public class RubikCube
         return true;
     }
 
-    public boolean counterClockwise()
+    public boolean clockwise()
     {
-        // TODO rotate counterClockwise
+        getSide(RubikSide.TOP).counterClockwise();
+        getSide(RubikSide.DOWN).clockwise();
+        RubikSide side = getSide(RubikSide.BACK);
+        sides[RubikSide.BACK] = null;
+
+        while (side != null) {
+            switch (side.getCurrentSide()) {
+                case RubikSide.BACK:
+                    side = setSide(side, RubikSide.RIGHT);
+                    break;
+                case RubikSide.RIGHT:
+                    side = setSide(side, RubikSide.FRONT);
+                    break;
+                case RubikSide.FRONT:
+                    side = setSide(side, RubikSide.LEFT);
+                    break;
+                case RubikSide.LEFT:
+                    side = setSide(side, RubikSide.BACK);
+                    break;
+            }
+        }
+
+        try {
+            getSolver().getTable().goToPos(Table.POS_EDGE);
+        } catch (InvalidActivityException e) {
+            return false;
+        }
+
         return true;
     }
 
@@ -125,6 +155,39 @@ public class RubikCube
             if (!counterClockwise()) {
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    public boolean counterClockwise()
+    {
+        getSide(RubikSide.TOP).clockwise();
+        getSide(RubikSide.DOWN).counterClockwise();
+        RubikSide side = getSide(RubikSide.BACK);
+        sides[RubikSide.BACK] = null;
+
+        while (side != null) {
+            switch (side.getCurrentSide()) {
+                case RubikSide.BACK:
+                    side = setSide(side, RubikSide.LEFT);
+                    break;
+                case RubikSide.LEFT:
+                    side = setSide(side, RubikSide.FRONT);
+                    break;
+                case RubikSide.FRONT:
+                    side = setSide(side, RubikSide.RIGHT);
+                    break;
+                case RubikSide.RIGHT:
+                    side = setSide(side, RubikSide.BACK);
+                    break;
+            }
+        }
+
+        try {
+            getSolver().getTable().goToPos(-Table.POS_EDGE);
+        } catch (InvalidActivityException e) {
+            return false;
         }
 
         return true;

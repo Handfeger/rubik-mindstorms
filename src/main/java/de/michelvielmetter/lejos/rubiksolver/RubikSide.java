@@ -2,7 +2,9 @@ package de.michelvielmetter.lejos.rubiksolver;
 
 import de.michelvielmetter.lejos.util.ColorName;
 import de.michelvielmetter.lejos.util.Display;
-import lejos.robotics.Color;
+import lejos.hardware.sensor.SensorMode;
+
+import javax.activity.InvalidActivityException;
 
 /**
  * ╔================================ RubikSide ====================================
@@ -26,6 +28,12 @@ public class RubikSide
     public final static int DOWN = 2;
     public final static int FRONT = 3;
     public final static int BACK = 1;
+
+    public void setCurrentSide(int currentSide)
+    {
+        this.currentSide = currentSide;
+    }
+
     public final static int LEFT = 4;
     public final static int RIGHT = 5;
 
@@ -166,19 +174,36 @@ public class RubikSide
             return false;
         }
 
-        // TEST DATA
-        middleColor = Color.GREEN;
-        outerColors[0] = Color.WHITE;
-        outerColors[1] = Color.RED;
-        outerColors[2] = Color.RED;
-        outerColors[3] = Color.YELLOW;
-        outerColors[4] = Color.GREEN;
-        outerColors[5] = Color.YELLOW;
-        outerColors[6] = Color.BLUE;
-        outerColors[7] = Color.WHITE;
+        ColorArm arm = cube.getSolver().getColorArm();
+        Table table = cube.getSolver().getTable();
+        float[] sample = new float[1];
 
-        if (currentSide == RubikSide.BACK) {
-            outerColors[0] = Color.GREEN;
+        SensorMode mode = cube.getSolver().getColorSensor().getColorIDMode();
+
+        try {
+            arm.goToPos(ColorArm.POS_MIDDLE);
+            mode.fetchSample(sample, 0);
+            middleColor = (int) sample[0];
+
+            for (int i = 0; i < 8; i++) {
+                if (i % 2 == 0) {
+                    arm.goToPos(ColorArm.POS_EDGE);
+                    if (i != 0) {
+                        table.goToPos(-Table.POS_EDGE);
+                    }
+                } else {
+                    arm.goToPos(ColorArm.POS_CORNER);
+                    table.goToPos(-Table.POS_CORNER);
+                }
+                mode.fetchSample(sample, 0);
+                outerColors[(i + 5) % 8] = (int) sample[0];
+            }
+
+            table.goToPos(-Table.POS_EDGE);
+            arm.goToZero();
+
+        } catch (InvalidActivityException e) {
+            return false;
         }
 
         return true;
