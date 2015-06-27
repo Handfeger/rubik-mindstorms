@@ -55,15 +55,15 @@ public class RubikSide
     {
         switch (currentSide) {
             case RubikSide.DOWN:
-                return cube.y(2);
+                return cube.x(2);
             case RubikSide.LEFT:
-                return cube.counterClockwise() && cube.y();
+                return cube.counterClockwise() && cube.x();
             case RubikSide.RIGHT:
-                return cube.clockwise() && cube.y();
+                return cube.clockwise() && cube.x();
             case RubikSide.FRONT:
-                return cube.y();
+                return cube.x();
             case RubikSide.BACK:
-                return cube.clockwise(2) && cube.y();
+                return cube.clockwise(2) && cube.x();
             case RubikSide.TOP:
                 return true;
             default:
@@ -75,15 +75,15 @@ public class RubikSide
     {
         switch (currentSide) {
             case RubikSide.TOP:
-                return cube.y(2);
+                return cube.x(2);
             case RubikSide.LEFT:
-                return cube.clockwise() && cube.y();
+                return cube.clockwise() && cube.x();
             case RubikSide.RIGHT:
-                return cube.counterClockwise() && cube.y();
+                return cube.counterClockwise() && cube.x();
             case RubikSide.BACK:
-                return cube.y();
+                return cube.x();
             case RubikSide.FRONT:
-                return cube.clockwise(2) && cube.y();
+                return cube.clockwise(2) && cube.x();
             case RubikSide.DOWN:
                 return true;
             default:

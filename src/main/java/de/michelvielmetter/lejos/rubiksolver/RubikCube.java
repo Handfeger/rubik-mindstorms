@@ -54,28 +54,28 @@ public class RubikCube
     }
 
     // MOVEMENTS
-    public boolean y()
+    public boolean x()
     {
-        return y(true);
+        return x(true);
     }
 
-    public boolean y(int times)
+    public boolean x(int times)
     {
-        return y(times, true);
+        return x(times, true);
     }
 
-    public boolean y(int times, boolean toZero)
+    public boolean x(int times, boolean toZero)
     {
         for (int i = 0; i < times - 1; i++) {
-            if (!y(false)) {
+            if (!x(false)) {
                 return false;
             }
         }
 
-        return y(toZero);
+        return x(toZero);
     }
 
-    public boolean y(boolean toZero)
+    public boolean x(boolean toZero)
     {
         getSide(RubikSide.LEFT).counterClockwise();
         getSide(RubikSide.RIGHT).clockwise();
