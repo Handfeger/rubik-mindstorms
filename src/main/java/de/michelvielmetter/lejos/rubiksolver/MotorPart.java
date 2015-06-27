@@ -27,6 +27,11 @@ public abstract class MotorPart extends Thread
 
     private int locked = 0;
 
+    protected int getZero()
+    {
+        return -zero;
+    }
+
     private int zero = 0;
 
     private MotorHelper motor;
@@ -72,7 +77,7 @@ public abstract class MotorPart extends Thread
         lockDependants();
 
         motor.rotate(degrees);
-        zero -= degrees;
+        updateZero(degrees);
 
         releaseDependants();
         if (zero == 0) {
@@ -80,7 +85,7 @@ public abstract class MotorPart extends Thread
         }
     }
 
-    public final void goToZero() throws InvalidActivityException
+    public void goToZero() throws InvalidActivityException
     {
         rotate(zero);
     }
@@ -92,4 +97,14 @@ public abstract class MotorPart extends Thread
     protected abstract void lockDependants();
 
     protected abstract void releaseDependants();
+
+    protected void goToPos(int degrees) throws InvalidActivityException
+    {
+        rotate(degrees - getZero());
+    }
+
+    protected void updateZero(int degrees)
+    {
+        zero -= degrees;
+    }
 }

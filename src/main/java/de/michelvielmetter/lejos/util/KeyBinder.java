@@ -4,7 +4,8 @@ import lejos.hardware.Brick;
 import lejos.hardware.Key;
 import lejos.hardware.KeyListener;
 
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ╔================================ KeyBinder ====================================
@@ -27,14 +28,14 @@ public class KeyBinder
     private Brick brick;
     private Display display;
 
-    public KeyBinder(Brick brick)
-    {
-        this.brick = brick;
-        display = null;
-        print = false;
+    private HashMap<String, String> buttons = new HashMap<>();
 
-        setup();
+    public void setInMenu(boolean inMenu)
+    {
+        this.inMenu = inMenu;
     }
+
+    private boolean inMenu = false;
 
     public KeyBinder(Brick brick, Display display, boolean print)
     {
@@ -57,22 +58,43 @@ public class KeyBinder
             @Override
             public void keyPressed(Key key)
             {
-                System.exit(0);
             }
 
             @Override
             public void keyReleased(Key key)
             {
-
+                if (!inMenu) {
+                    System.exit(0);
+                } else {
+                    inMenu = false;
+                    printAllButtons();
+                }
             }
         });
     }
 
     public void addKey(String buttonType, String description, KeyListener listener)
     {
-        brick.getKey(buttonType).addKeyListener(listener);
+        Key key = brick.getKey(buttonType);
+        if (buttons.containsKey(buttonType)) {
+            throw new IllegalArgumentException("Can't bind multiple Actions to Key " + buttonType);
+        }
+        key.addKeyListener(listener);
+
+        buttons.put(buttonType, description);
 
         printButton(buttonType, description);
+    }
+
+    private void printAllButtons()
+    {
+        display.setAutoRefresh(false);
+        display.clear();
+        for (Map.Entry<String, String> entry : buttons.entrySet()) {
+            printButton(entry.getKey(), entry.getValue());
+        }
+        display.setAutoRefresh(true);
+        display.refresh();
     }
 
     private void printButton(String type, String name)
@@ -106,6 +128,6 @@ public class KeyBinder
         }
 
         display.drawString(type + ":", line, 1);
-        display.drawString(name, line, 7*10);
+        display.drawString(name, line, 7 * 10);
     }
 }

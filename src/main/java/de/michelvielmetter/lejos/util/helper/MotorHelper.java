@@ -23,7 +23,7 @@ import lejos.hardware.port.Port;
  */
 public class MotorHelper
 {
-    private BaseRegulatedMotor motor;
+    private final BaseRegulatedMotor motor;
 
     private MotorThread thread;
 
@@ -129,6 +129,8 @@ public class MotorHelper
 
     public void rotate(int degrees)
     {
-        // TODO
+        synchronized (motor) {
+            motor.rotate(degrees);
+        }
     }
 }

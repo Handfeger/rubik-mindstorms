@@ -19,6 +19,9 @@ import de.michelvielmetter.lejos.util.LejosHelper;
  */
 public class Table extends MotorPart
 {
+    public static final int POS_EDGE = 270;
+    public static final int POS_CORNER = 135;
+
     public Table(RubikSolver rubik)
     {
         super(rubik, LejosHelper.getLargeMotor("B", rubik.getBrick()));
@@ -27,13 +30,13 @@ public class Table extends MotorPart
     @Override
     protected void hardLockDependants()
     {
-
+        this.getRubik().getArm().lock();
     }
 
     @Override
     protected void hardReleaseDependants()
     {
-
+        this.getRubik().getArm().release();
     }
 
     @Override
@@ -46,5 +49,15 @@ public class Table extends MotorPart
     protected void releaseDependants()
     {
         this.getRubik().getArm().release();
+    }
+
+    @Override
+    protected void updateZero(int degrees)
+    {
+        int current = getZero();
+        super.updateZero(-current);
+        current += degrees;
+        current = current % 270;
+        super.updateZero(current);
     }
 }

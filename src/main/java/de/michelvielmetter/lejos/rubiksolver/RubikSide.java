@@ -1,5 +1,11 @@
 package de.michelvielmetter.lejos.rubiksolver;
 
+import de.michelvielmetter.lejos.util.ColorName;
+import de.michelvielmetter.lejos.util.Display;
+import lejos.hardware.sensor.SensorMode;
+
+import javax.activity.InvalidActivityException;
+
 /**
  * ╔================================ RubikSide ====================================
  * ║
@@ -17,11 +23,17 @@ package de.michelvielmetter.lejos.rubiksolver;
  */
 public class RubikSide
 {
-    // The Sides that will be seen from the colorpicker!
+    // The Sides that will be seen from the color picker!
     public final static int TOP = 0;
     public final static int DOWN = 2;
     public final static int FRONT = 3;
     public final static int BACK = 1;
+
+    public void setCurrentSide(int currentSide)
+    {
+        this.currentSide = currentSide;
+    }
+
     public final static int LEFT = 4;
     public final static int RIGHT = 5;
 
@@ -39,57 +51,43 @@ public class RubikSide
         this.currentSide = currentSide;
     }
 
-    public void putTop()
+    public boolean putTop()
     {
         switch (currentSide) {
             case RubikSide.DOWN:
-                cube.y(2);
-                break;
+                return cube.y(2);
             case RubikSide.LEFT:
-                cube.counterClockwise();
-                cube.y();
-                break;
+                return cube.counterClockwise() && cube.y();
             case RubikSide.RIGHT:
-                cube.clockwise();
-                cube.y();
-                break;
+                return cube.clockwise() && cube.y();
             case RubikSide.FRONT:
-                cube.y();
-                break;
+                return cube.y();
             case RubikSide.BACK:
-                cube.clockwise(2);
-                cube.y();
+                return cube.clockwise(2) && cube.y();
             case RubikSide.TOP:
-                // Fallthrough
+                return true;
             default:
-                break;
+                return false;
         }
     }
 
-    public void putDown()
+    public boolean putDown()
     {
         switch (currentSide) {
             case RubikSide.TOP:
-                cube.y(2);
-                break;
+                return cube.y(2);
             case RubikSide.LEFT:
-                cube.clockwise();
-                cube.y();
-                break;
+                return cube.clockwise() && cube.y();
             case RubikSide.RIGHT:
-                cube.counterClockwise();
-                cube.y();
-                break;
+                return cube.counterClockwise() && cube.y();
             case RubikSide.BACK:
-                cube.y();
-                break;
+                return cube.y();
             case RubikSide.FRONT:
-                cube.clockwise(2);
-                cube.y();
+                return cube.clockwise(2) && cube.y();
             case RubikSide.DOWN:
-                // Fallthrough
+                return true;
             default:
-                break;
+                return false;
         }
     }
 
@@ -120,5 +118,94 @@ public class RubikSide
     public int getCurrentSide()
     {
         return currentSide;
+    }
+
+    public void print(Display display)
+    {
+        display.clear();
+        display.drawString("Side: " + getSideString(), 1);
+
+        char[] line = new char[3];
+
+        for (int i = 0; i < 3; i++) {
+            line[i] = ColorName.colorChar(outerColors[i]);
+        }
+        display.drawString(String.valueOf(line), 2);
+
+        line[0] = ColorName.colorChar(outerColors[7]);
+        line[1] = ColorName.colorChar(middleColor);
+        line[2] = ColorName.colorChar(outerColors[3]);
+        display.drawString(String.valueOf(line), 3);
+
+        line[0] = ColorName.colorChar(outerColors[6]);
+        line[1] = ColorName.colorChar(outerColors[5]);
+        line[2] = ColorName.colorChar(outerColors[4]);
+        display.drawString(String.valueOf(line), 4);
+    }
+
+    public String getSideString()
+    {
+        return RubikSide.getSideString(currentSide);
+    }
+
+    public static String getSideString(int side)
+    {
+        switch (side) {
+            case 0:
+                return "TOP";
+            case 2:
+                return "DOWN";
+            case 3:
+                return "FRONT";
+            case 1:
+                return "BACK";
+            case 4:
+                return "LEFT";
+            case 5:
+                return "RIGHT";
+            default:
+                return "unknown";
+        }
+    }
+
+    public boolean getColors()
+    {
+        if (!putTop()) {
+            return false;
+        }
+
+        ColorArm arm = cube.getSolver().getColorArm();
+        Table table = cube.getSolver().getTable();
+        float[] sample = new float[1];
+
+        SensorMode mode = cube.getSolver().getColorSensor().getColorIDMode();
+
+        try {
+            arm.goToPos(ColorArm.POS_MIDDLE);
+            mode.fetchSample(sample, 0);
+            middleColor = (int) sample[0];
+
+            for (int i = 0; i < 8; i++) {
+                if (i % 2 == 0) {
+                    arm.goToPos(ColorArm.POS_EDGE);
+                    if (i != 0) {
+                        table.goToPos(-Table.POS_EDGE);
+                    }
+                } else {
+                    arm.goToPos(ColorArm.POS_CORNER);
+                    table.goToPos(-Table.POS_CORNER);
+                }
+                mode.fetchSample(sample, 0);
+                outerColors[(i + 5) % 8] = (int) sample[0];
+            }
+
+            table.goToPos(-Table.POS_EDGE);
+            arm.goToZero();
+
+        } catch (InvalidActivityException e) {
+            return false;
+        }
+
+        return true;
     }
 }
