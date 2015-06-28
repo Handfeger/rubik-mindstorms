@@ -110,7 +110,8 @@ public class RubikSolver extends Thread
             public void keyPressed(Key k)
             {
                 if (k.getName().equals("Down")) {
-                    MainTest test= new MainTest();
+                    display.clear();
+                    MainTest test= new MainTest(display);
                 }
             }
 
