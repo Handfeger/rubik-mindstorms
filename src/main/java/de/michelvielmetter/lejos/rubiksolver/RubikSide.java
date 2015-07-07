@@ -120,6 +120,28 @@ public class RubikSide
         return currentSide;
     }
 
+    public int[] getOuterColors() {
+        return outerColors;
+    }
+
+    public int[] convertToBlockColors(){
+        int[] blockColors=new int[9];
+        for (int i = 0; i < 3; i++) {
+            blockColors[i] = outerColors[i];
+        }
+        blockColors[3] =outerColors[7];
+        blockColors[4] = middleColor;
+        blockColors[5] = outerColors[3];
+        blockColors[6] = outerColors[6];
+        blockColors[7] = outerColors[5];
+        blockColors[8] = outerColors[4];
+        return blockColors;
+    }
+
+    public int getMiddleColor() {
+        return middleColor;
+    }
+
     public void print(Display display)
     {
         display.clear();
