@@ -51,7 +51,7 @@ public class RubikSolver extends Thread
         cube = new RubikCube(this);
         display = LejosHelper.getDisplay();
 
-        colorSensor = new EV3ColorSensor(brick.getPort("S2"));
+        colorSensor = new EV3ColorSensor(brick.getPort("S4"));
 
         arm.start();
         colorArm.start();
@@ -113,7 +113,9 @@ public class RubikSolver extends Thread
                     display.clear();
                     Algorithm algorithm=new Algorithm(true);
                     String test1="UURUULBBLFFBDRRUBDURDLFRBLLLUFRDDRBBRFLFLDFUDUBFFBDRLD";
-                    String moves=algorithm.runDebug(test1,display);
+                    String moves=algorithm.run(cube, display);
+                    display.clear();
+                    System.out.println(moves);
                 }
             }
 

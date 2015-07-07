@@ -26,7 +26,7 @@ public class ColorArm extends MotorPart
 
     //Uni
     public static final int POS_MIDDLE = -670;
-    public static final int POS_EDGE = -550;
+    public static final int POS_EDGE = -570;
     public static final int POS_CORNER = -500;
 
 

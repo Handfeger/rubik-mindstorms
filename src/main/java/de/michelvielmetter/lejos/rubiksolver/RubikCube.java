@@ -198,6 +198,7 @@ public class RubikCube
         for (RubikSide side : sides) {
             side.readColors();
         }
+//        getSide(RubikSide.DOWN).readColors();
 
         return true;
     }
