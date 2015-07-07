@@ -97,8 +97,6 @@ public class RubikCube
         try {
             solver.getArm().rotateCube(toZero);
         } catch (InvalidActivityException e) {
-            LejosHelper.getDisplay().clear();
-            e.printStackTrace();
             return false;
         }
 
@@ -198,7 +196,7 @@ public class RubikCube
         RubikSide[] sides = this.sides.clone();
 
         for (RubikSide side : sides) {
-            side.getColors();
+            side.readColors();
         }
 
         return true;

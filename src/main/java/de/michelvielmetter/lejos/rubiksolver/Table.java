@@ -25,6 +25,7 @@ public class Table extends MotorPart
     public Table(RubikSolver rubik)
     {
         super(rubik, LejosHelper.getLargeMotor("B", rubik.getBrick()));
+        setSpeed(140);
     }
 
     @Override
@@ -55,9 +56,8 @@ public class Table extends MotorPart
     protected void updateZero(int degrees)
     {
         int current = getZero();
-        super.updateZero(-current);
         current += degrees;
         current = current % 270;
-        super.updateZero(current);
+        setZero(current);
     }
 }

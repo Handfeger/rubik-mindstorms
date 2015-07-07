@@ -29,7 +29,12 @@ public abstract class MotorPart extends Thread
 
     protected int getZero()
     {
-        return -zero;
+        return zero;
+    }
+
+    protected void setZero(int zero)
+    {
+        this.zero = zero;
     }
 
     private int zero = 0;
@@ -73,7 +78,9 @@ public abstract class MotorPart extends Thread
             throw new InvalidActivityException("Trying to move " + this.getClass() + " in locked state");
         }
 
-        hardLockDependants();
+        if (zero == 0) {
+            hardLockDependants();
+        }
         lockDependants();
 
         motor.rotate(degrees);
@@ -87,7 +94,7 @@ public abstract class MotorPart extends Thread
 
     public void goToZero() throws InvalidActivityException
     {
-        rotate(zero);
+        rotate(-zero);
     }
 
     protected abstract void hardLockDependants();
@@ -103,8 +110,18 @@ public abstract class MotorPart extends Thread
         rotate(degrees - getZero());
     }
 
+    protected void setSpeed(int speed)
+    {
+        motor.setSpeed(speed);
+    }
+
     protected void updateZero(int degrees)
     {
-        zero -= degrees;
+        zero += degrees;
+    }
+
+    public void findZero()
+    {
+
     }
 }

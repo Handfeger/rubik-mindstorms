@@ -8,6 +8,8 @@ import lejos.hardware.Key;
 import lejos.hardware.KeyListener;
 import lejos.hardware.sensor.EV3ColorSensor;
 
+import javax.activity.InvalidActivityException;
+
 /**
  * ╔================================ RubikSolver ====================================
  * ║
@@ -87,6 +89,7 @@ public class RubikSolver extends Thread
         }
 
         // TODO find zero positions
+        arm.findZero();
 
         LejosHelper.getKeyBinder().addKey("Up", "Read Color", new KeyListener()
         {
@@ -103,6 +106,45 @@ public class RubikSolver extends Thread
             {
             }
         });
+
+        LejosHelper.getKeyBinder().addKey("Left", "PosColor", new KeyListener()
+        {
+            @Override
+            public void keyPressed(Key k)
+            {
+                if (k.getName().equals("Left")) {
+                    try {
+                        LejosHelper.getKeyBinder().setInMenu(true);
+                        display.clear();
+
+                        System.out.println("Middle");
+                        colorArm.goToPos(ColorArm.POS_MIDDLE);
+                        Thread.sleep(2000);
+
+                        System.out.println("Edge");
+                        colorArm.goToPos(ColorArm.POS_EDGE);
+                        Thread.sleep(2000);
+
+                        System.out.println("Corner");
+                        table.goToPos(Table.POS_CORNER);
+                        colorArm.goToPos(ColorArm.POS_CORNER);
+                        Thread.sleep(2000);
+
+                        colorArm.goToZero();
+                        table.goToZero();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(Key k)
+            {
+            }
+        });
+
+
 
         // TODO Find Algorithm
 

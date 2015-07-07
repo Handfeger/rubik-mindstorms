@@ -37,9 +37,9 @@ public class RubikSide
     public final static int LEFT = 4;
     public final static int RIGHT = 5;
 
-    private int middleColor;
+    private int middleColor = -1;
 
-    private int[] outerColors = new int[8];
+    private int[] outerColors = {-1,-1,-1,-1,-1,-1,-1,-1};
 
     private RubikCube cube;
 
@@ -81,9 +81,9 @@ public class RubikSide
             case RubikSide.RIGHT:
                 return cube.counterClockwise() && cube.x();
             case RubikSide.BACK:
-                return cube.x();
-            case RubikSide.FRONT:
                 return cube.clockwise(2) && cube.x();
+            case RubikSide.FRONT:
+                return cube.x();
             case RubikSide.DOWN:
                 return true;
             default:
@@ -168,7 +168,7 @@ public class RubikSide
         }
     }
 
-    public boolean getColors()
+    public boolean readColors()
     {
         if (!putTop()) {
             return false;

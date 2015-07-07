@@ -133,4 +133,9 @@ public class MotorHelper
             motor.rotate(degrees);
         }
     }
+
+    public void setSpeed(int speed)
+    {
+        motor.setSpeed(speed);
+    }
 }

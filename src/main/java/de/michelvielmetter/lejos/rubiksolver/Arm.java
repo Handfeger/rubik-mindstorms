@@ -75,4 +75,15 @@ public class Arm extends MotorPart
         goToPos(Arm.POS1);
         goToZero();
     }
+
+    @Override
+    public void findZero()
+    {
+        setZero(8);
+        try {
+            goToZero();
+        } catch (InvalidActivityException e) {
+            e.printStackTrace();
+        }
+    }
 }
