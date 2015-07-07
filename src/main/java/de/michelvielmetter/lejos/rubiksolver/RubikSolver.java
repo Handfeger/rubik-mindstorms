@@ -1,6 +1,5 @@
 package de.michelvielmetter.lejos.rubiksolver;
 
-import cs.min2phase.MainTest;
 import de.michelvielmetter.lejos.util.Display;
 import de.michelvielmetter.lejos.util.LejosHelper;
 import lejos.hardware.Brick;
