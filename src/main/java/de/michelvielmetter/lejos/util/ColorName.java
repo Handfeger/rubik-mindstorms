@@ -75,11 +75,11 @@ public class ColorName
             case Color.WHITE:
                 return 'W';
             case Color.BLACK:
-                return 'B';
+                return 'b';
             case Color.PINK:
                 return 'p';
             case Color.GRAY:
-                return 'b';
+                return 't';
             case Color.LIGHT_GRAY:
                 return 'g';
             case Color.DARK_GRAY:

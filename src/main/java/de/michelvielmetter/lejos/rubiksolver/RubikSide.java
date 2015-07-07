@@ -3,6 +3,7 @@ package de.michelvielmetter.lejos.rubiksolver;
 import de.michelvielmetter.lejos.util.ColorName;
 import de.michelvielmetter.lejos.util.Display;
 import lejos.hardware.sensor.SensorMode;
+import lejos.robotics.Color;
 
 import javax.activity.InvalidActivityException;
 
@@ -25,21 +26,21 @@ public class RubikSide
 {
     // The Sides that will be seen from the color picker!
     public final static int TOP = 0;
+    public final static int BACK = 1;
     public final static int DOWN = 2;
     public final static int FRONT = 3;
-    public final static int BACK = 1;
+    public final static int LEFT = 4;
+    public final static int RIGHT = 5;
 
     public void setCurrentSide(int currentSide)
     {
         this.currentSide = currentSide;
     }
 
-    public final static int LEFT = 4;
-    public final static int RIGHT = 5;
 
-    private int middleColor;
+    private int middleColor = -1;
 
-    private int[] outerColors = new int[8];
+    private int[] outerColors = {-1, -1, -1, -1, -1, -1, -1, -1};
 
     private RubikCube cube;
 
@@ -81,9 +82,9 @@ public class RubikSide
             case RubikSide.RIGHT:
                 return cube.counterClockwise() && cube.x();
             case RubikSide.BACK:
-                return cube.x();
-            case RubikSide.FRONT:
                 return cube.clockwise(2) && cube.x();
+            case RubikSide.FRONT:
+                return cube.x();
             case RubikSide.DOWN:
                 return true;
             default:
@@ -93,7 +94,12 @@ public class RubikSide
 
     public void clockwise()
     {
-        // TODO Rotate outer Sides Clockwise
+        int[] newArr = new int[8];
+        for (int i = 0; i < 8; i++) {
+            newArr[(i + 2) % 8] = outerColors[i];
+        }
+
+        outerColors = newArr;
     }
 
     public void clockwise(int times)
@@ -105,7 +111,12 @@ public class RubikSide
 
     public void counterClockwise()
     {
-        // TODO Rotate outer Sides CounterClockwise
+        int[] newArr = new int[8];
+        for (int i = 0; i < 8; i++) {
+            newArr[(i + 6) % 8] = outerColors[i];
+        }
+
+        outerColors = newArr;
     }
 
     public void counterClockwise(int times)
@@ -120,16 +131,18 @@ public class RubikSide
         return currentSide;
     }
 
-    public int[] getOuterColors() {
+    public int[] getOuterColors()
+    {
         return outerColors;
     }
 
-    public int[] convertToBlockColors(){
-        int[] blockColors=new int[9];
+    public int[] convertToBlockColors()
+    {
+        int[] blockColors = new int[9];
         for (int i = 0; i < 3; i++) {
             blockColors[i] = outerColors[i];
         }
-        blockColors[3] =outerColors[7];
+        blockColors[3] = outerColors[7];
         blockColors[4] = middleColor;
         blockColors[5] = outerColors[3];
         blockColors[6] = outerColors[6];
@@ -138,7 +151,8 @@ public class RubikSide
         return blockColors;
     }
 
-    public int getMiddleColor() {
+    public int getMiddleColor()
+    {
         return middleColor;
     }
 
@@ -190,7 +204,7 @@ public class RubikSide
         }
     }
 
-    public boolean getColors()
+    public boolean readColors()
     {
         if (!putTop()) {
             return false;
@@ -201,11 +215,16 @@ public class RubikSide
         float[] sample = new float[1];
 
         SensorMode mode = cube.getSolver().getColorSensor().getColorIDMode();
+        int sampleInt = 0;
 
         try {
             arm.goToPos(ColorArm.POS_MIDDLE);
             mode.fetchSample(sample, 0);
-            middleColor = (int) sample[0];
+            sampleInt = (int) sample[0];
+            if (sampleInt == Color.NONE || sampleInt == Color.BROWN) {
+                sampleInt = Color.BLACK;
+            }
+            middleColor = sampleInt;
 
             for (int i = 0; i < 8; i++) {
                 if (i % 2 == 0) {
@@ -218,7 +237,11 @@ public class RubikSide
                     table.goToPos(-Table.POS_CORNER);
                 }
                 mode.fetchSample(sample, 0);
-                outerColors[(i + 5) % 8] = (int) sample[0];
+                sampleInt = (int) sample[0];
+                if (sampleInt == Color.NONE || sampleInt == Color.BROWN) {
+                    sampleInt = Color.BLACK;
+                }
+                outerColors[(i + 5) % 8] = sampleInt;
             }
 
             table.goToPos(-Table.POS_EDGE);

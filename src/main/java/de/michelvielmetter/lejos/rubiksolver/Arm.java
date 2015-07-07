@@ -22,12 +22,12 @@ import javax.activity.InvalidActivityException;
 public class Arm extends MotorPart
 {
     public static final int POS1 = 110;
-    public static final int POS2 = 200;
+    public static final int POS2 = 210;
 
     public Arm(RubikSolver rubik)
     {
         super(rubik, LejosHelper.getLargeMotor("A", rubik.getBrick()));
-        // TODO set speed
+        setSpeed(140);
     }
 
     @Override
@@ -74,5 +74,16 @@ public class Arm extends MotorPart
         goToZero();
         goToPos(Arm.POS1);
         goToZero();
+    }
+
+    @Override
+    public void findZero()
+    {
+        setZero(8);
+        try {
+            goToZero();
+        } catch (InvalidActivityException e) {
+            e.printStackTrace();
+        }
     }
 }
