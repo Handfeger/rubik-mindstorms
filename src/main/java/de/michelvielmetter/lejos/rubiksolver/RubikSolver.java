@@ -1,5 +1,6 @@
 package de.michelvielmetter.lejos.rubiksolver;
 
+import cs.min2phase.MainTest;
 import de.michelvielmetter.lejos.util.Display;
 import de.michelvielmetter.lejos.util.LejosHelper;
 import lejos.hardware.Brick;
@@ -103,8 +104,26 @@ public class RubikSolver extends Thread
             {
             }
         });
+        LejosHelper.getKeyBinder().addKey("Down", "Algorithm with Input-String", new KeyListener()
+        {
+            @Override
+            public void keyPressed(Key k)
+            {
+                if (k.getName().equals("Down")) {
+                    display.clear();
+                    Algorithm algorithm=new Algorithm(true);
+                    String test1="UURUULBBLFFBDRRUBDURDLFRBLLLUFRDDRBBRFLFLDFUDUBFFBDRLD";
+                    String moves=algorithm.runDebug(test1,display);
+                }
+            }
 
-        // TODO Find Algorithm
+            @Override
+            public void keyReleased(Key k)
+            {
+            }
+        });
+        //TODO check if calculating moves worked, reread cube if not
+        //TODO convert Algorithm moves to robot moves
 
         // TODO Solve
     }
