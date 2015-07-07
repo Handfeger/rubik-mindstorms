@@ -104,14 +104,16 @@ public class RubikSolver extends Thread
             {
             }
         });
-        LejosHelper.getKeyBinder().addKey("Down", "Algorithm", new KeyListener()
+        LejosHelper.getKeyBinder().addKey("Down", "Algorithm with Input-String", new KeyListener()
         {
             @Override
             public void keyPressed(Key k)
             {
                 if (k.getName().equals("Down")) {
                     display.clear();
-                    MainTest test= new MainTest(display);
+                    Algorithm algorithm=new Algorithm(true);
+                    String test1="UURUULBBLFFBDRRUBDURDLFRBLLLUFRDDRBBRFLFLDFUDUBFFBDRLD";
+                    String moves=algorithm.runDebug(test1,display);
                 }
             }
 
@@ -120,7 +122,8 @@ public class RubikSolver extends Thread
             {
             }
         });
-        // TODO Find Algorithm
+        //TODO check if calculating moves worked, reread cube if not
+        //TODO convert Algorithm moves to robot moves
 
         // TODO Solve
     }
