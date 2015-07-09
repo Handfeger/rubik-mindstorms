@@ -33,69 +33,45 @@ public class Moves {
     }
 
     public void move(RubikCube cube, String moves) {
+        RubikSide current = null;
         for (int i = 0; i < moves.length(); i += 3) {
             switch (moves.charAt(i)) {
                 case 'U':
-                    if (moves.charAt(i + 1) == '\'') {
-                        cube.sideCounterClockwise(up);
-                    } else if (moves.charAt(i + 1) == '2') {
-                        cube.sideTwoTimes(up);
-                    } else {
-                        cube.sideClockwise(up);
-                    }
+                    current = up;
                     break;
                 case 'B':
-                    if (moves.charAt(i + 1) == '\'') {
-                        cube.sideCounterClockwise(back);
-                    } else if (moves.charAt(i + 1) == '2') {
-                        cube.sideTwoTimes(back);
-                    } else {
-                        cube.sideClockwise(back);
-                    }
+                    current = back;
                     break;
                 case 'D':
-                    if (moves.charAt(i + 1) == '\'') {
-                        cube.sideCounterClockwise(down);
-                    } else if (moves.charAt(i + 1) == '2') {
-                        cube.sideTwoTimes(down);
-                    } else {
-                        cube.sideClockwise(down);
-                    }
+                    current = down;
                     break;
                 case 'F':
-                    if (moves.charAt(i + 1) == '\'') {
-                        cube.sideCounterClockwise(front);
-                    } else if (moves.charAt(i + 1) == '2') {
-                        cube.sideTwoTimes(front);
-                    } else {
-                        cube.sideClockwise(front);
-                    }
+                    current = front;
                     break;
                 case 'L':
-                    if (moves.charAt(i + 1) == '\'') {
-                        cube.sideCounterClockwise(left);
-                    } else if (moves.charAt(i + 1) == '2') {
-                        cube.sideTwoTimes(left);
-                    } else {
-                        cube.sideClockwise(left);
-                    }
+                    current = left;
                     break;
                 case 'R':
-                    if (moves.charAt(i + 1) == '\'') {
-                        cube.sideCounterClockwise(right);
-                    } else if (moves.charAt(i + 1) == '2') {
-                        cube.sideTwoTimes(right);
-                    } else {
-                        cube.sideClockwise(right);
-                    }
+                    current = right;
                     break;
                 case '(':
+                    current = null;
                     movesNumberString = moves.substring(i + 1, i + 2) + "face turns!";
                     break;
             }
+            if (current != null) {
+                if (moves.charAt(i + 1) == '\'') {
+                    cube.sideCounterClockwise(current);
+                } else if (moves.charAt(i + 1) == '2') {
+                    cube.sideTwoTimes(current);
+                } else {
+                    cube.sideClockwise(current);
+                }
+            }
             try {
                 System.out.print(moves.charAt(i));
-                System.out.println(moves.charAt(i + 1));
+                System.out.print(moves.charAt(i + 1));
+                System.out.println(" ");
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
