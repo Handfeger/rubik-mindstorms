@@ -7,6 +7,9 @@ import lejos.hardware.BrickFinder;
 import lejos.hardware.Key;
 import lejos.hardware.KeyListener;
 import lejos.hardware.sensor.EV3ColorSensor;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
+
+import javax.activity.InvalidActivityException;
 
 /**
  * ╔================================ RubikSolver ====================================
@@ -88,20 +91,32 @@ public class RubikSolver extends Thread
 
         // TODO find zero positions
         arm.findZero();
-
-        LejosHelper.getKeyBinder().addKey("Up", "Read Color", new KeyListener()
-        {
+        new EV3UltrasonicSensor(brick.getPort("S1"));
+        LejosHelper.getKeyBinder().addKey("Up", "Read Color", new KeyListener() {
             @Override
-            public void keyPressed(Key k)
-            {
+            public void keyPressed(Key k) {
                 if (k.getName().equals("Up")) {
                     cube.readSides();
                 }
+//                try {
+//                    colorArm.goToPos(ColorArm.POS_MIDDLE);
+//                    Thread.sleep(4000);
+//                    colorArm.goToPos(ColorArm.POS_EDGE+30);
+//                    Thread.sleep(4000);
+//                    colorArm.goToPos(ColorArm.POS_CORNER);
+//                    table.goToPos(Table.POS_CORNER);
+//                    Thread.sleep(4000);
+//                    table.goToZero();
+//                    colorArm.goToZero();
+//                } catch (InvalidActivityException e) {
+//                    e.printStackTrace();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
             }
 
             @Override
-            public void keyReleased(Key k)
-            {
+            public void keyReleased(Key k) {
             }
         });
         LejosHelper.getKeyBinder().addKey("Down", "Algorithm with Input-String", new KeyListener()
@@ -112,7 +127,7 @@ public class RubikSolver extends Thread
                 if (k.getName().equals("Down")) {
                     display.clear();
                     Algorithm algorithm=new Algorithm(true);
-                    String test1="UURUULBBLFFBDRRUBDURDLFRBLLLUFRDDRBBRFLFLDFUDUBFFBDRLD";
+                    //String test1="UURUULBBLFFBDRRUBDURDLFRBLLLUFRDDRBBRFLFLDFUDUBFFBDRLD";
                     String moves=algorithm.run(cube, display);
                     display.clear();
                     System.out.println(moves);
@@ -132,11 +147,11 @@ public class RubikSolver extends Thread
             {
                 if (k.getName().equals("Left")) {
                     display.clear();
-                    Algorithm algorithm=new Algorithm(true);
-                    String test1="UURUULBBLFFBDRRUBDURDLFRBLLLUFRDDRBBRFLFLDFUDUBFFBDRLD";
-                    String moveString=algorithm.runDebug(test1, display);
+                    //Algorithm algorithm=new Algorithm(true);
+                    //String test1="UURUULBBLFFBDRRUBDURDLFRBLLLUFRDDRBBRFLFLDFUDUBFFBDRLD";
+                    //String moveString=algorithm.runDebug(test1, display);
                     display.clear();
-                    Moves moves=new Moves(cube,moveString);
+                    Moves moves=new Moves(cube,"R2 U' R2 B2 U  D  F' D' R' B2 U' L2 F2 U  F2 U2 L2 U2 R2 B2 D  (21f)");
                 }
             }
 
@@ -173,9 +188,10 @@ public class RubikSolver extends Thread
                     if (!algorithm.isMovesCalculated()) {
                         return;
                     }
+                    Moves moves =new Moves(cube,moveString);
 
-                    // TODO Robomoves
-                    // TODO SOLVE
+                    display.clear();
+                    display.drawString(moves.getMovesNumberString());
                 }
             }
 

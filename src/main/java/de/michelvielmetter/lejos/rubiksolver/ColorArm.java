@@ -25,9 +25,9 @@ public class ColorArm extends MotorPart
 //    public static final int POS_CORNER = -480;
 
     //Uni
-    public static final int POS_MIDDLE = -670;
-    public static final int POS_EDGE = -570;
-    public static final int POS_CORNER = -500;
+    public static final int POS_MIDDLE = -750;
+    public static final int POS_EDGE = -600;
+    public static final int POS_CORNER = -530;
 
 
     public ColorArm(RubikSolver rubik)

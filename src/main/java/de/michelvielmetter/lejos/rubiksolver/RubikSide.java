@@ -2,6 +2,7 @@ package de.michelvielmetter.lejos.rubiksolver;
 
 import de.michelvielmetter.lejos.util.ColorName;
 import de.michelvielmetter.lejos.util.Display;
+import de.michelvielmetter.lejos.util.LejosHelper;
 import lejos.hardware.sensor.SensorMode;
 import lejos.robotics.Color;
 
@@ -22,8 +23,7 @@ import javax.activity.InvalidActivityException;
  * ║
  * ╚================================ RubikSide ====================================
  */
-public class RubikSide
-{
+public class RubikSide {
     // The Sides that will be seen from the color picker!
     public final static int TOP = 0;
     public final static int BACK = 1;
@@ -32,8 +32,7 @@ public class RubikSide
     public final static int LEFT = 4;
     public final static int RIGHT = 5;
 
-    public void setCurrentSide(int currentSide)
-    {
+    public void setCurrentSide(int currentSide) {
         this.currentSide = currentSide;
     }
 
@@ -46,14 +45,12 @@ public class RubikSide
 
     private int currentSide;
 
-    public RubikSide(int currentSide, RubikCube cube)
-    {
+    public RubikSide(int currentSide, RubikCube cube) {
         this.cube = cube;
         this.currentSide = currentSide;
     }
 
-    public boolean putTop()
-    {
+    public boolean putTop() {
         switch (currentSide) {
             case RubikSide.DOWN:
                 return cube.x(2);
@@ -86,9 +83,9 @@ public class RubikSide
             case RubikSide.RIGHT:
                 return cube.counterClockwise() && cube.x(false);
             case RubikSide.BACK:
-                return cube.clockwise(2) && cube.x(false);
-            case RubikSide.FRONT:
                 return cube.x(false);
+            case RubikSide.FRONT:
+                return cube.clockwise(2) && cube.x(false);
             case RubikSide.DOWN:
                 return true;
             default:
@@ -96,8 +93,7 @@ public class RubikSide
         }
     }
 
-    public void clockwise()
-    {
+    public void clockwise() {
         int[] newArr = new int[8];
         for (int i = 0; i < 8; i++) {
             newArr[(i + 2) % 8] = outerColors[i];
@@ -106,15 +102,13 @@ public class RubikSide
         outerColors = newArr;
     }
 
-    public void clockwise(int times)
-    {
+    public void clockwise(int times) {
         for (int i = 0; i < times; i++) {
             clockwise();
         }
     }
 
-    public void counterClockwise()
-    {
+    public void counterClockwise() {
         int[] newArr = new int[8];
         for (int i = 0; i < 8; i++) {
             newArr[(i + 6) % 8] = outerColors[i];
@@ -123,25 +117,21 @@ public class RubikSide
         outerColors = newArr;
     }
 
-    public void counterClockwise(int times)
-    {
+    public void counterClockwise(int times) {
         for (int i = 0; i < times; i++) {
             counterClockwise();
         }
     }
 
-    public int getCurrentSide()
-    {
+    public int getCurrentSide() {
         return currentSide;
     }
 
-    public int[] getOuterColors()
-    {
+    public int[] getOuterColors() {
         return outerColors;
     }
 
-    public int[] convertToBlockColors()
-    {
+    public int[] convertToBlockColors() {
         int[] blockColors = new int[9];
         for (int i = 0; i < 3; i++) {
             blockColors[i] = outerColors[i];
@@ -155,13 +145,11 @@ public class RubikSide
         return blockColors;
     }
 
-    public int getMiddleColor()
-    {
+    public int getMiddleColor() {
         return middleColor;
     }
 
-    public void print(Display display)
-    {
+    public void print(Display display) {
         display.clear();
         display.drawString("Side: " + getSideString(), 1);
 
@@ -183,13 +171,11 @@ public class RubikSide
         display.drawString(String.valueOf(line), 4);
     }
 
-    public String getSideString()
-    {
+    public String getSideString() {
         return RubikSide.getSideString(currentSide);
     }
 
-    public static String getSideString(int side)
-    {
+    public static String getSideString(int side) {
         switch (side) {
             case 0:
                 return "TOP";
@@ -208,8 +194,7 @@ public class RubikSide
         }
     }
 
-    public boolean readColors()
-    {
+    public boolean readColors() {
         if (!putTop()) {
             return false;
         }
@@ -229,11 +214,16 @@ public class RubikSide
                 sampleInt = Color.BLACK;
             }
             middleColor = sampleInt;
+            Display display = LejosHelper.getDisplay();
+            display.clear();
+            display.drawString(ColorName.nameColor(sampleInt));
 
             for (int i = 0; i < 8; i++) {
                 if (i % 2 == 0) {
-                    arm.goToPos(ColorArm.POS_EDGE);
-                    if (i != 0) {
+                    if (i == 0) {
+                        arm.goToPos(ColorArm.POS_EDGE + 30);
+                    } else {
+                        arm.goToPos(ColorArm.POS_EDGE);
                         table.goToPos(-Table.POS_EDGE);
                     }
                 } else {
@@ -246,6 +236,8 @@ public class RubikSide
                     sampleInt = Color.BLACK;
                 }
                 outerColors[(i + 5) % 8] = sampleInt;
+                display.clear();
+                display.drawString(ColorName.nameColor(sampleInt));
             }
 
             table.goToPos(-Table.POS_EDGE);

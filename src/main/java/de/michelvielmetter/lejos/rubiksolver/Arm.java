@@ -21,13 +21,13 @@ import javax.activity.InvalidActivityException;
  */
 public class Arm extends MotorPart
 {
-    public static final int POS_HOLD = 110;
-    public static final int POS_ROTATE = 215;
+    public static final int POS_HOLD = 98;
+    public static final int POS_ROTATE = 199;
 
     public Arm(RubikSolver rubik)
     {
         super(rubik, LejosHelper.getLargeMotor("A", rubik.getBrick()));
-        setSpeed(200);
+        setSpeed(250);
     }
 
     @Override

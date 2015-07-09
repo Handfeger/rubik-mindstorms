@@ -39,22 +39,24 @@ public class Algorithm
 
     public String run(RubikCube cube, Display display)
     {
+        display.drawString("Calculating moves", 1);
         String input = convertCube(cube, display);
-        int maxDepth = 21;
-        int maxTime = 5;
-        String moves = calculateMoves(input, maxDepth, maxTime);
-        cubeError = verifyCube(moves, display);
-        movesCalculated = verifyCalculatetMoves(moves, display);
-        int i = 1;
-        while (!cubeError && movesCalculated && i < 6) {
-            moves = calculateMoves(input, maxDepth + i, maxTime + i);
-            movesCalculated = verifyCalculatetMoves(moves, display);
-            i++;
-        }
-        if (debug) {
-            display.drawString(moves, 4);
-        }
-        return moves;
+//        int maxDepth = 21;
+//        int maxTime = 5;
+//        String moves = calculateMoves(input, maxDepth, maxTime);
+//        cubeError = verifyCube(moves, display);
+//        movesCalculated = verifyCalculatetMoves(moves, display);
+//        int i = 1;
+//        while (!cubeError && movesCalculated && i < 6) {
+//            moves = calculateMoves(input, maxDepth + i, maxTime + i);
+//            movesCalculated = verifyCalculatetMoves(moves, display);
+//            i++;
+//        }
+//        if (debug) {
+//            display.drawString(moves, 4);
+//        }
+//        return moves;
+        return "";
     }
 
     public String runDebug(String input, Display display)
@@ -124,7 +126,13 @@ public class Algorithm
             if (s.length() < 54) {
                 display.drawString("Input String is to short", 2);
             }
-            display.drawString(input, 3);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            display.clear();
+            System.out.println(input);
         }
         return input;
     }

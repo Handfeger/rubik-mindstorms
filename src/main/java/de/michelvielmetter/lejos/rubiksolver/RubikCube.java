@@ -231,7 +231,7 @@ public class RubikCube
         try {
             arm.goToPos(Arm.POS_HOLD);
             table.goToPos(Table.POS_EDGE);
-            table.goToPos(Table.POS_ROTATE);
+            table.goToPos(Table.POS_ROTATE+2);
 
             table.goToZero();
 

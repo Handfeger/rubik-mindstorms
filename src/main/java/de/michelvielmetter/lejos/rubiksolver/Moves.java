@@ -68,14 +68,11 @@ public class Moves {
                     cube.sideClockwise(current);
                 }
             }
-            try {
+
                 System.out.print(moves.charAt(i));
                 System.out.print(moves.charAt(i + 1));
-                System.out.println(" ");
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+                System.out.println(" "+Integer.toString(up.getCurrentSide()));
+
         }
 
     }
