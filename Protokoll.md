@@ -9,7 +9,7 @@ Lego Mindstorm EV3 (Lejos)
 	Lukas Stachow 5296145
 
 #### Projekt: Rubiks Cube
-Die Aufgabe besteht darin einen Roboter zu bauen/programmieren, der fähig ist einen Würfel so zu manipulieren, dass alle Seiten aus Feldern der gleichen Farbe bestehen. Dieser Würfel, welcher in Höhe, Breite und Tiefe in drei Lagen, welche sich um ihre jeweilige Raumachse drehen lassen, unterteilt ist besitzt somit auf jeder Seite 3x3 Felder mit meist unterschiedlichen Farben.
+Die Aufgabe besteht darin einen Roboter zu bauen/programmieren, der fähig ist einen Würfel so zu manipulieren, dass alle Seiten aus Feldern der gleichen Farbe bestehen. Dieser Würfel, welcher in Höhe, Breite und Tiefe in drei Lagen, welche sich um ihre jeweilige Raumachse drehen lassen, unterteilt ist, besitzt somit auf jeder Seite 3x3 Felder mit meist unterschiedlichen Farben.
 
 #### Der Roboter:
 Der Lego Mindstorm Roboter - EV3 mit dem Namen MindCub3r verfügt über drei Motoren und einen Sensor (Farbsensor). Die drei Motoren steuern „Arm“, „ColorArm“ und „Table“ an. Der Würfel wird in eine Schale gelegt, welche sich von 	Table um 90° clockwise und counterclockwise rotieren lässt. Arm kann den Würfel greifen und festhalten, oder nach 	vorne kippen. ColorArm bewegt den Farbsensor, mit welchem jedes Feld einzeln eingelesen werden kann. Durch Kombination der Motoren Arm und Table kann der 	Würfel beliebig gedreht, und jede Lage bewegt werden. Dabei verhindert die 	„InvalidActivityException“, dass sich Arm und ColorArm gegenseitig behindern. Mit dieser Mechanik lässt sich ein Rubiks Cube lösen.
