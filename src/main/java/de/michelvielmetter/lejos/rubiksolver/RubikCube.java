@@ -191,6 +191,88 @@ public class RubikCube
         return true;
     }
 
+    public boolean sideClockwise(int times)
+    {
+        for (int i = 0; i < times; i++) {
+            if (!sideClockwise()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean sideClockwise()
+    {
+        Arm arm = getSolver().getArm();
+        Table table = getSolver().getTable();
+
+        try {
+            arm.goToPos(Arm.POS_HOLD);
+            table.goToPos(Table.POS_ROTATE);
+
+            table.goToZero();
+            arm.goToZero();
+
+        } catch (InvalidActivityException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean sideClockwise(RubikSide side)
+    {
+        try {
+            getSolver().getArm().goToZero();
+        } catch (InvalidActivityException e) {
+            return false;
+        }
+        side.putDown();
+
+        return sideClockwise();
+    }
+
+    public boolean sideCounterClockwise(int times)
+    {
+        for (int i = 0; i < times; i++) {
+            if (!sideCounterClockwise()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean sideCounterClockwise()
+    {
+        Arm arm = getSolver().getArm();
+        Table table = getSolver().getTable();
+
+        try {
+            arm.goToPos(Arm.POS_HOLD);
+            table.goToPos(Table.POS_ROTATE); //TODO right direction?
+
+            table.goToZero();
+            arm.goToZero();
+
+        } catch (InvalidActivityException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean sideCounterClockwise(RubikSide side)
+    {
+        try {
+            getSolver().getArm().goToZero();
+        } catch (InvalidActivityException e) {
+            return false;
+        }
+        side.putDown();
+
+        return sideCounterClockwise();
+    }
+
     public boolean readSides()
     {
         RubikSide[] sides = this.sides.clone();

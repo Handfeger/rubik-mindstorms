@@ -21,8 +21,8 @@ import javax.activity.InvalidActivityException;
  */
 public class Arm extends MotorPart
 {
-    public static final int POS1 = 110;
-    public static final int POS2 = 210;
+    public static final int POS_HOLD = 110;
+    public static final int POS_ROTATE = 210;
 
     public Arm(RubikSolver rubik)
     {
@@ -58,21 +58,21 @@ public class Arm extends MotorPart
 
     public void rotateCube(boolean toZero) throws InvalidActivityException
     {
-        if (getZero() != 0 && getZero() != Arm.POS1) {
+        if (getZero() != 0 && getZero() != Arm.POS_HOLD) {
             goToZero();
         }
-        goToPos(Arm.POS2);
+        goToPos(Arm.POS_ROTATE);
         if (toZero) {
             goToZero();
         } else {
-            goToPos(Arm.POS1);
+            goToPos(Arm.POS_HOLD);
         }
     }
 
     public void fixCubPos() throws InvalidActivityException
     {
         goToZero();
-        goToPos(Arm.POS1);
+        goToPos(Arm.POS_HOLD);
         goToZero();
     }
 

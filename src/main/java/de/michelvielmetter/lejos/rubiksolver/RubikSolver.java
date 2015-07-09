@@ -124,10 +124,64 @@ public class RubikSolver extends Thread
             {
             }
         });
-        //TODO check if calculating moves worked, reread cube if not
-        //TODO convert Algorithm moves to robot moves
 
-        // TODO Solve
+        LejosHelper.getKeyBinder().addKey("Left", "Solve", new KeyListener()
+        {
+            @Override
+            public void keyPressed(Key k)
+            {
+                if (k.getName().equals("Left")) {
+                    cube.sideClockwise(cube.getSide(RubikSide.TOP));
+                    cube.sideClockwise(cube.getSide(RubikSide.LEFT));
+                }
+            }
+
+            @Override
+            public void keyReleased(Key k)
+            {
+            }
+        });
+
+
+        LejosHelper.getKeyBinder().addKey("Right", "All", new KeyListener()
+        {
+
+            @Override
+            public void keyPressed(Key k)
+            {
+
+                if (k.getName().equals("Right")) {
+                    display.clear();
+
+                    String moveString;
+                    Algorithm algorithm = new Algorithm(false);
+
+                    do {
+                        if (!cube.readSides()) {
+                            display.drawString("Read sides failed");
+                            return;
+                        }
+
+                        moveString = algorithm.run(cube, display);
+
+                    } while (algorithm.isCubeError());
+
+                    if (!algorithm.isMovesCalculated()) {
+                        return;
+                    }
+
+                    // TODO Robomoves
+                    // TODO SOLVE
+                }
+            }
+
+            @Override
+            public void keyReleased(Key k)
+            {
+
+            }
+        });
+
     }
 
     public void printSide(RubikSide side)
