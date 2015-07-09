@@ -21,11 +21,12 @@ public class Table extends MotorPart
 {
     public static final int POS_EDGE = 270;
     public static final int POS_CORNER = 135;
-    public static final int POS_ROTATE = 330;
+    public static final int POS_ROTATE = 319;
 
     public Table(RubikSolver rubik)
     {
         super(rubik, LejosHelper.getLargeMotor("B", rubik.getBrick()));
+        setSpeed(450);
     }
 
     @Override

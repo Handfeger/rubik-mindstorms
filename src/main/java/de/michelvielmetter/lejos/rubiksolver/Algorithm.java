@@ -50,6 +50,7 @@ public class Algorithm {
             display.drawString(moves, 4);
         }
         return moves;
+//        return "";
     }
 
     public String runDebug(String input, Display display) {
@@ -117,7 +118,13 @@ public class Algorithm {
             if (s.length() < 54) {
                 display.drawString("Input String is to short", 2);
             }
-            display.drawString(input, 3);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            display.clear();
+            System.out.println(input);
         }
         return input;
     }
