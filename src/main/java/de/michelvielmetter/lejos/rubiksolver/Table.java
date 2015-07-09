@@ -26,6 +26,7 @@ public class Table extends MotorPart
     public Table(RubikSolver rubik)
     {
         super(rubik, LejosHelper.getLargeMotor("B", rubik.getBrick()));
+        setSpeed(450);
     }
 
     @Override

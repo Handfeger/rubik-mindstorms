@@ -35,22 +35,22 @@ public class Algorithm {
 
     public String run(RubikCube cube, Display display) {
         String input = convertCube(cube, display);
-//        int maxDepth = 21;
-//        int maxTime = 5;
-//        String moves = calculateMoves(input, maxDepth, maxTime);
-//        cubeError = verifyCube(moves, display);
-//        movesCalculated = verifyCalculatetMoves(moves, display);
-//        int i = 1;
-//        while (!cubeError && movesCalculated && i < 6) {
-//            moves = calculateMoves(input, maxDepth + i, maxTime + i);
-//            movesCalculated = verifyCalculatetMoves(moves, display);
-//            i++;
-//        }
-//        if (debug) {
-//            display.drawString(moves, 4);
-//        }
-//        return moves;
-        return "";
+        int maxDepth = 21;
+        int maxTime = 5;
+        String moves = calculateMoves(input, maxDepth, maxTime);
+        cubeError = verifyCube(moves, display);
+        movesCalculated = verifyCalculatetMoves(moves, display);
+        int i = 1;
+        while (!cubeError && movesCalculated && i < 6) {
+            moves = calculateMoves(input, maxDepth + i, maxTime + i);
+            movesCalculated = verifyCalculatetMoves(moves, display);
+            i++;
+        }
+        if (debug) {
+            display.drawString(moves, 4);
+        }
+        return moves;
+//        return "";
     }
 
     public String runDebug(String input, Display display) {

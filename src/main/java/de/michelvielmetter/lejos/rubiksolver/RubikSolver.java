@@ -180,10 +180,15 @@ public class RubikSolver extends Thread
                             display.drawString("Read sides failed");
                             return;
                         }
+                        display.clear();
+                        display.drawString("Calculating Moves...");
 
                         moveString = algorithm.run(cube, display);
 
                     } while (algorithm.isCubeError());
+
+                    display.clear();
+                    display.drawString("Solving...");
 
                     if (!algorithm.isMovesCalculated()) {
                         return;

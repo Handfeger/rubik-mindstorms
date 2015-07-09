@@ -72,8 +72,10 @@ public abstract class MotorPart extends Thread
         return locked > 1;
     }
 
-    public final void rotate(int degrees) throws InvalidActivityException
-    {
+    public final void rotate(int degrees) throws InvalidActivityException {
+        if (degrees == 0) {
+            return;
+        }
         if (isLocked()) {
             throw new InvalidActivityException("Trying to move " + this.getClass() + " in locked state");
         }
@@ -113,6 +115,9 @@ public abstract class MotorPart extends Thread
     protected void setSpeed(int speed)
     {
         motor.setSpeed(speed);
+    }
+    protected void setSpeed(){
+        motor.setSpeed();
     }
 
     protected void updateZero(int degrees)

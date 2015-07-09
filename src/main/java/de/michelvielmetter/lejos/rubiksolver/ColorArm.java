@@ -1,6 +1,7 @@
 package de.michelvielmetter.lejos.rubiksolver;
 
 import de.michelvielmetter.lejos.util.LejosHelper;
+import lejos.hardware.motor.EV3MediumRegulatedMotor;
 
 /**
  * ╔================================ ColorArm ====================================
@@ -33,6 +34,7 @@ public class ColorArm extends MotorPart
     public ColorArm(RubikSolver rubik)
     {
         super(rubik, LejosHelper.getMediumMotor("C", rubik.getBrick()));
+        setSpeed();
     }
 
     @Override

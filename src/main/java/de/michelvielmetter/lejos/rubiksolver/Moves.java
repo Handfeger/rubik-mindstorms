@@ -34,6 +34,7 @@ public class Moves {
 
     public void move(RubikCube cube, String moves) {
         RubikSide current = null;
+        int moveCounter=0;
         for (int i = 0; i < moves.length(); i += 3) {
             switch (moves.charAt(i)) {
                 case 'U':
@@ -55,8 +56,7 @@ public class Moves {
                     current = right;
                     break;
                 case '(':
-                    current = null;
-                    movesNumberString = moves.substring(i + 1, i + 2) + "face turns!";
+                    moveCounter--;
                     break;
             }
             if (current != null) {
@@ -68,12 +68,9 @@ public class Moves {
                     cube.sideClockwise(current);
                 }
             }
-
-                System.out.print(moves.charAt(i));
-                System.out.print(moves.charAt(i + 1));
-                System.out.println(" "+Integer.toString(up.getCurrentSide()));
-
+            moveCounter++;
         }
+        movesNumberString = Integer.toString(moveCounter) + " face turns!";
 
     }
 }

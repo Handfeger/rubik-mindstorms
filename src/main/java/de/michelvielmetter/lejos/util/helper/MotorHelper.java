@@ -138,4 +138,8 @@ public class MotorHelper
     {
         motor.setSpeed(speed);
     }
+
+    public void setSpeed() {
+        setSpeed((int)motor.getMaxSpeed());
+    }
 }

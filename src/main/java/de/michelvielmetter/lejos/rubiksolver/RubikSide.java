@@ -71,25 +71,29 @@ public class RubikSide {
 
     public boolean putDown() {
         try {
-            cube.getSolver().getArm().goToZero();
-        } catch (InvalidActivityException e) {
-            return false;
-        }
+
+
         switch (currentSide) {
             case RubikSide.TOP:
                 return cube.x(2, false);
             case RubikSide.LEFT:
+                cube.getSolver().getArm().goToZero();
                 return cube.clockwise() && cube.x(false);
             case RubikSide.RIGHT:
+                cube.getSolver().getArm().goToZero();
                 return cube.counterClockwise() && cube.x(false);
             case RubikSide.BACK:
                 return cube.x(false);
             case RubikSide.FRONT:
+                cube.getSolver().getArm().goToZero();
                 return cube.clockwise(2) && cube.x(false);
             case RubikSide.DOWN:
                 return true;
             default:
                 return false;
+        }
+        } catch (InvalidActivityException e) {
+            return false;
         }
     }
 
