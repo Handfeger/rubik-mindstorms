@@ -40,7 +40,7 @@ public class Algorithm {
     public String runDebug(String input,Display display){
         debug=true;
         display.drawString("Calculating moves",1);
-        int maxDepth=16; int maxTime=5;
+        int maxDepth=21; int maxTime=5;
         String moves=calculateMoves(input,maxDepth,maxTime);
         cubeError =verifyCube(moves,display);
         movesCalculated=verifyCalculatetMoves(moves, display);
@@ -73,7 +73,7 @@ public class Algorithm {
             char color=middleColors[cube.getSide(0).convertToBlockColors()[i]];
             s.append(color);
         }
-        for(int i=0;i<9;i++){
+        for(int i=8;i>=0;i--){
             char color=middleColors[cube.getSide(5).convertToBlockColors()[i]];
             s.append(color);
         }
@@ -81,11 +81,11 @@ public class Algorithm {
             char color=middleColors[cube.getSide(3).convertToBlockColors()[i]];
             s.append(color);
         }
-        for(int i=8;i>=0;i--){
+        for(int i=0;i<9;i++){
             char color=middleColors[cube.getSide(2).convertToBlockColors()[i]];
             s.append(color);
         }
-        for(int i=0;i<9;i++){
+        for(int i=8;i>=0;i--){
             char color=middleColors[cube.getSide(4).convertToBlockColors()[i]];
             s.append(color);
         }
