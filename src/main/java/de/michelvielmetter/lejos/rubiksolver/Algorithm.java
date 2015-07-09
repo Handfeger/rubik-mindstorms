@@ -8,38 +8,32 @@ import de.michelvielmetter.lejos.util.Display;
  */
 
 
-public class Algorithm
-{
+public class Algorithm {
 
-    public boolean isCubeError()
-    {
+    private boolean cubeError;
+
+    public boolean isCubeError() {
         return cubeError;
     }
 
-    public boolean isMovesCalculated()
-    {
+    public boolean isMovesCalculated() {
         return movesCalculated;
     }
 
-    public boolean isDebug()
-    {
+    public boolean isDebug() {
         return debug;
     }
 
-    private boolean cubeError;
     private boolean movesCalculated;
     private boolean debug;
 
-    public Algorithm(boolean debug)
-    {
+    public Algorithm(boolean debug) {
         cubeError = true;
         movesCalculated = false;
         this.debug = debug;
     }
 
-    public String run(RubikCube cube, Display display)
-    {
-        display.drawString("Calculating moves", 1);
+    public String run(RubikCube cube, Display display) {
         String input = convertCube(cube, display);
 //        int maxDepth = 21;
 //        int maxTime = 5;
@@ -59,8 +53,7 @@ public class Algorithm
         return "";
     }
 
-    public String runDebug(String input, Display display)
-    {
+    public String runDebug(String input, Display display) {
         debug = true;
         display.drawString("Calculating moves", 1);
         int maxDepth = 21;
@@ -82,9 +75,8 @@ public class Algorithm
         return moves;
     }
 
-    private String convertCube(RubikCube cube, Display display)
-    {
-        StringBuilder s = new StringBuilder(0); //StringBuffer to generate input String
+    private String convertCube(RubikCube cube, Display display) {
+        StringBuffer s = new StringBuffer(0); //StringBuffer to generate input String
 
         //Array with the position of the middleColors
         char[] middleColors = new char[14];
@@ -98,7 +90,7 @@ public class Algorithm
             char color = middleColors[cube.getSide(0).convertToBlockColors()[i]];
             s.append(color);
         }
-        for (int i = 0; i < 9; i++) {
+        for (int i = 8; i >= 0; i--) {
             char color = middleColors[cube.getSide(5).convertToBlockColors()[i]];
             s.append(color);
         }
@@ -106,11 +98,11 @@ public class Algorithm
             char color = middleColors[cube.getSide(3).convertToBlockColors()[i]];
             s.append(color);
         }
-        for (int i = 8; i >= 0; i--) {
+        for (int i = 0; i < 9; i++) {
             char color = middleColors[cube.getSide(2).convertToBlockColors()[i]];
             s.append(color);
         }
-        for (int i = 0; i < 9; i++) {
+        for (int i = 8; i >= 0; i--) {
             char color = middleColors[cube.getSide(4).convertToBlockColors()[i]];
             s.append(color);
         }
@@ -137,22 +129,22 @@ public class Algorithm
         return input;
     }
 
-    private String calculateMoves(String input, int maxDepth, int maxTime)
-    {
+    private String calculateMoves(String input, int maxDepth, int maxTime) {
+        boolean inverse = false;
         Search search = new Search();
         long t = System.nanoTime();
-        String result = search.solution(input, maxDepth, 100, 0, 4);
+        int mask = inverse ? 6 : 4;
+        String result = search.solution(input, maxDepth, 100, 0, mask);
         long n_probe = search.numberOfProbes();
         while (result.startsWith("Error 8") && ((System.nanoTime() - t) < maxTime * 1.0e9)) {
-            result = search.next(100, 0, 4);
+            result = search.next(100, 0, mask);
             n_probe += search.numberOfProbes();
         }
         t = System.nanoTime() - t;
         return result;
     }
 
-    private boolean verifyCube(String result, Display display)
-    {
+    private boolean verifyCube(String result, Display display) {
         boolean error = false;
         if (result.contains("Error")) {
             switch (result.charAt(result.length() - 1)) {
@@ -186,8 +178,7 @@ public class Algorithm
 
     }
 
-    private boolean verifyCalculatetMoves(String result, Display display)
-    {
+    private boolean verifyCalculatetMoves(String result, Display display) {
         boolean movesOK = false;
         if (result.contains("Error")) {
             movesOK = false;
