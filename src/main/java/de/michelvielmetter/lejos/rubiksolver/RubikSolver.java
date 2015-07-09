@@ -131,8 +131,12 @@ public class RubikSolver extends Thread
             public void keyPressed(Key k)
             {
                 if (k.getName().equals("Left")) {
-                    cube.sideClockwise(cube.getSide(RubikSide.TOP));
-                    cube.sideClockwise(cube.getSide(RubikSide.LEFT));
+                    display.clear();
+                    Algorithm algorithm=new Algorithm(true);
+                    String test1="UURUULBBLFFBDRRUBDURDLFRBLLLUFRDDRBBRFLFLDFUDUBFFBDRLD";
+                    String moveString=algorithm.runDebug(test1, display);
+                    display.clear();
+                    Moves moves=new Moves(cube,moveString);
                 }
             }
 

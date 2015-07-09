@@ -72,8 +72,12 @@ public class RubikSide
         }
     }
 
-    public boolean putDown()
-    {
+    public boolean putDown() {
+        try {
+            cube.getSolver().getArm().goToZero();
+        } catch (InvalidActivityException e) {
+            return false;
+        }
         switch (currentSide) {
             case RubikSide.TOP:
                 return cube.x(2, false);

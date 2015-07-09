@@ -61,7 +61,7 @@ public class Algorithm
     {
         debug = true;
         display.drawString("Calculating moves", 1);
-        int maxDepth = 16;
+        int maxDepth = 21;
         int maxTime = 5;
         String moves = calculateMoves(input, maxDepth, maxTime);
         cubeError = verifyCube(moves, display);

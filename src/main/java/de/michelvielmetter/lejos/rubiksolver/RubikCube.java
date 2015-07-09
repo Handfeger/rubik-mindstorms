@@ -139,6 +139,7 @@ public class RubikCube
         }
 
         try {
+            getSolver().getArm().goToZero();
             getSolver().getTable().goToPos(Table.POS_EDGE);
         } catch (InvalidActivityException e) {
             return false;
@@ -183,21 +184,12 @@ public class RubikCube
         }
 
         try {
+            getSolver().getArm().goToZero();
             getSolver().getTable().goToPos(-Table.POS_EDGE);
         } catch (InvalidActivityException e) {
             return false;
         }
 
-        return true;
-    }
-
-    public boolean sideClockwise(int times)
-    {
-        for (int i = 0; i < times; i++) {
-            if (!sideClockwise()) {
-                return false;
-            }
-        }
         return true;
     }
 
@@ -208,7 +200,7 @@ public class RubikCube
 
         try {
             arm.goToPos(Arm.POS_HOLD);
-            table.goToPos(Table.POS_ROTATE);
+            table.goToPos(-Table.POS_ROTATE);
 
             table.goToZero();
             arm.goToZero();
@@ -232,13 +224,21 @@ public class RubikCube
         return sideClockwise();
     }
 
-    public boolean sideCounterClockwise(int times)
-    {
-        for (int i = 0; i < times; i++) {
-            if (!sideCounterClockwise()) {
-                return false;
-            }
+    public boolean sideTwoTimes(RubikSide side){
+        Arm arm = getSolver().getArm();
+        Table table = getSolver().getTable();
+        side.putDown();
+        try {
+            arm.goToPos(Arm.POS_HOLD);
+            table.goToPos(Table.POS_EDGE);
+            table.goToPos(Table.POS_ROTATE);
+
+            table.goToZero();
+
+        } catch (InvalidActivityException e) {
+            return false;
         }
+
         return true;
     }
 
@@ -252,7 +252,6 @@ public class RubikCube
             table.goToPos(Table.POS_ROTATE); //TODO right direction?
 
             table.goToZero();
-            arm.goToZero();
 
         } catch (InvalidActivityException e) {
             return false;
@@ -260,6 +259,7 @@ public class RubikCube
 
         return true;
     }
+
 
     public boolean sideCounterClockwise(RubikSide side)
     {
