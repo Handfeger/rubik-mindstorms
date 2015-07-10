@@ -27,6 +27,8 @@ public class Algorithm {
     private boolean movesCalculated;
     private boolean debug;
 
+    private long solveTime;
+
     public Algorithm(boolean debug) {
         cubeError = true;
         movesCalculated = false;
@@ -76,7 +78,7 @@ public class Algorithm {
     }
 
     private String convertCube(RubikCube cube, Display display) {
-        StringBuffer s = new StringBuffer(0); //StringBuffer to generate input String
+        StringBuilder s = new StringBuilder(0); //StringBuffer to generate input String
 
         //Array with the position of the middleColors
         char[] middleColors = new char[14];
@@ -133,14 +135,13 @@ public class Algorithm {
         boolean inverse = false;
         Search search = new Search();
         long t = System.nanoTime();
-        int mask = inverse ? 6 : 4;
-        String result = search.solution(input, maxDepth, 100, 0, mask);
+        String result = search.solution(input, maxDepth, 100, 0, 4);
         long n_probe = search.numberOfProbes();
         while (result.startsWith("Error 8") && ((System.nanoTime() - t) < maxTime * 1.0e9)) {
-            result = search.next(100, 0, mask);
+            result = search.next(100, 0, 4);
             n_probe += search.numberOfProbes();
         }
-        t = System.nanoTime() - t;
+        solveTime = System.nanoTime() - t;
         return result;
     }
 

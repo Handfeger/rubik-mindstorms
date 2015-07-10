@@ -195,6 +195,12 @@ public class RubikSolver extends Thread
                     }
                     Moves moves =new Moves(cube,moveString);
 
+                    try {
+                        arm.goToZero();
+                    } catch (InvalidActivityException e) {
+                        e.printStackTrace();
+                    }
+
                     display.clear();
                     display.drawString(moves.getMovesNumberString());
                 }

@@ -56,6 +56,7 @@ public class Moves {
                     current = right;
                     break;
                 case '(':
+                    current = null;
                     moveCounter--;
                     break;
             }

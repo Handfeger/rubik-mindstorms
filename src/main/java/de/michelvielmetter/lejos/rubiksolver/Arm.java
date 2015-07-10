@@ -27,7 +27,7 @@ public class Arm extends MotorPart
     public Arm(RubikSolver rubik)
     {
         super(rubik, LejosHelper.getLargeMotor("A", rubik.getBrick()));
-        setSpeed(570);
+        setSpeed(540);
     }
 
     @Override
